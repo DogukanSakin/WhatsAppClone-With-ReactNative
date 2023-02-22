@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, Text } from "react-native";
-import useFontFamily from "../hooks/useFonts";
-import ThemeContext from "../context/ThemeContext";
-import colors from "../constants/colors";
+import useFontFamily from "../../hooks/useFonts";
+
 interface IProps {
   fontFamily?: "regular" | "bold";
   text: string;
@@ -14,17 +13,12 @@ export default function WhatsappText({
   overrideStyles,
 }: IProps) {
   const { onLayoutRootView, fontsLoaded } = useFontFamily();
-  const { theme } = useContext(ThemeContext);
   return (
     <View onLayout={onLayoutRootView}>
       <Text
         style={[
           {
             fontFamily: fontsLoaded ? `${fontFamily}` : "System",
-            color:
-              theme === "dark"
-                ? colors.darkPrimaryComponentColor
-                : colors.lightComponentColor,
           },
           overrideStyles,
         ]}

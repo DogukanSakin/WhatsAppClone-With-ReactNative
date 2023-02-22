@@ -8,19 +8,20 @@ const stylesConstants = StyleSheet.create({
   header: {
     padding: 20,
   },
-  headerText: {
+  bigText: {
     fontSize: 20,
   },
-  headerInnerContainer: {
+  rowSpaceBetweenContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
   },
-  iconContainer: {
+  rowAlignContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+  },
+  rowContainer: {
+    flexDirection: "row",
   },
   icon: {
     marginLeft: 30,
@@ -28,15 +29,28 @@ const stylesConstants = StyleSheet.create({
   popUpMenu: {
     width: deviceSize.width / 2,
   },
-  menuText: {
+  middleText: {
     fontSize: 16,
   },
-  tabViewText: {
+  smallText: {
     fontSize: 14,
   },
   tabViewPage: {
-    padding: 10,
+    padding: 20,
     flex: 1,
+  },
+  bottomText: {
+    color: colors.darkPrimaryComponentColor,
+  },
+  endcryptedIcon: {
+    marginRight: 4,
+    color: colors.darkPrimaryComponentColor,
+  },
+  cardImageOrIconContainer: {
+    borderRadius: 200,
+    height: 50,
+    width: 50,
+    resizeMode: "contain",
   },
 });
 export default {
@@ -55,12 +69,28 @@ export default {
       backgroundColor: colors.headerDark,
     },
     menuText: {
-      ...stylesConstants.menuText,
+      ...stylesConstants.middleText,
       color: colors.lightComponentColor,
     },
     tabViewPage: {
       ...stylesConstants.tabViewPage,
       backgroundColor: colors.darkSecondaryComponentColor,
+    },
+    headerInnerContainer: {
+      ...stylesConstants.rowSpaceBetweenContainer,
+      marginBottom: 10,
+    },
+    headerText: {
+      ...stylesConstants.bigText,
+      color: colors.darkPrimaryComponentColor,
+    },
+    pageInnerContainer: {
+      ...stylesConstants.rowAlignContainer,
+      marginLeft: 20,
+    },
+    pageInnerText: {
+      ...stylesConstants.middleText,
+      color: colors.lightComponentColor,
     },
   }),
   light: StyleSheet.create({
@@ -78,12 +108,31 @@ export default {
       backgroundColor: colors.lightComponentColor,
     },
     menuText: {
-      ...stylesConstants.menuText,
+      ...stylesConstants.middleText,
       color: colors.darkSecondaryComponentColor,
     },
     tabViewPage: {
       ...stylesConstants.tabViewPage,
       backgroundColor: colors.lightComponentColor,
+    },
+    endcryptedText: {
+      ...stylesConstants.bottomText,
+    },
+    headerInnerContainer: {
+      ...stylesConstants.rowSpaceBetweenContainer,
+      marginBottom: 10,
+    },
+    headerText: {
+      ...stylesConstants.bigText,
+      color: colors.lightComponentColor,
+    },
+    pageInnerContainer: {
+      ...stylesConstants.rowAlignContainer,
+      marginLeft: 20,
+    },
+    pageInnerText: {
+      ...stylesConstants.middleText,
+      color: colors.darkSecondaryComponentColor,
     },
   }),
 };

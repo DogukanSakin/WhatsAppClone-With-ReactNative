@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View } from "react-native";
-import WhatsappText from "./components/WhatsappText";
+import WhatsappText from "./components/texts/WhatsappText";
 import ThemeContext from "./context/ThemeContext";
 import styles from "./constants/styles";
 import { Ionicons, Feather } from "@expo/vector-icons";
@@ -19,7 +19,7 @@ export default function Router() {
     <WhatsappText
       text={title}
       overrideStyles={[
-        styles[currentTheme].tabViewText,
+        styles[currentTheme].smallText,
         {
           color: focused
             ? theme === "dark"
@@ -43,18 +43,16 @@ export default function Router() {
             overrideStyles={styles[currentTheme].headerText}
           ></WhatsappText>
 
-          <View style={styles[currentTheme].iconContainer}>
+          <View style={styles[currentTheme].rowSpaceBetweenContainer}>
             <Feather
               name="camera"
               size={20}
               style={styles[currentTheme].icon}
-              color={styles[currentTheme].icon.color}
             ></Feather>
             <Ionicons
               name="search-outline"
               size={20}
               style={styles[currentTheme].icon}
-              color={styles[currentTheme].icon.color}
             />
             <PopUpMenu />
           </View>

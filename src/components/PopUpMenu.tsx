@@ -3,7 +3,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Menu, MenuItem } from "react-native-material-menu";
 import styles from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
-import WhatsappText from "./WhatsappText";
+import WhatsappText from "./texts/WhatsappText";
 export default function PopUpMenu() {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
