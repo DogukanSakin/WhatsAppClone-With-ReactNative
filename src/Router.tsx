@@ -1,16 +1,37 @@
-import React, { useContext, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useContext } from "react";
+import { View } from "react-native";
 import WhatsappText from "./components/WhatsappText";
 import ThemeContext from "./context/ThemeContext";
 import styles from "./constants/styles";
-import { Ionicons, Feather, Entypo } from "@expo/vector-icons";
-import { Menu, MenuItem } from "react-native-material-menu";
+import { Ionicons, Feather } from "@expo/vector-icons";
+import PopUpMenu from "./components/PopUpMenu";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import Calls from "./pages/Calls";
+import Chats from "./pages/Chats";
+import Status from "./pages/Status";
+import { NavigationContainer } from "@react-navigation/native";
+import colors from "./constants/colors";
 export default function Router() {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
-  const [visible, setVisible] = useState(false);
-  const hideMenu = () => setVisible(false);
-  const showMenu = () => setVisible(true);
+  const Tab = createMaterialTopTabNavigator();
+  const tabViewTitle = (focused: boolean, title: string) => (
+    <WhatsappText
+      text={title}
+      overrideStyles={[
+        styles[currentTheme].tabViewText,
+        {
+          color: focused
+            ? theme === "dark"
+              ? colors.greenComponentColor
+              : colors.lightComponentColor
+            : theme === "dark"
+            ? colors.darkPrimaryComponentColor
+            : colors.lightInactiveColor,
+        },
+      ]}
+    />
+  );
 
   return (
     <View style={styles[currentTheme].container}>
@@ -35,33 +56,49 @@ export default function Router() {
               style={styles[currentTheme].icon}
               color={styles[currentTheme].icon.color}
             />
-            <Menu
-              style={styles[currentTheme].popUpMenu}
-              visible={visible}
-              anchor={
-                <Entypo
-                  name="dots-three-vertical"
-                  size={20}
-                  style={styles[currentTheme].icon}
-                  color={styles[currentTheme].icon.color}
-                  onPress={showMenu}
-                />
-              }
-              onRequestClose={hideMenu}
-            >
-              <MenuItem
-                onPress={hideMenu}
-                children={
-                  <WhatsappText
-                    text="WhatsApp"
-                    overrideStyles={styles[currentTheme].menuText}
-                  ></WhatsappText>
-                }
-              ></MenuItem>
-            </Menu>
+            <PopUpMenu />
           </View>
         </View>
       </View>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarIndicatorStyle: {
+              backgroundColor:
+                theme === "dark"
+                  ? colors.greenComponentColor
+                  : colors.lightComponentColor,
+            },
+
+            tabBarStyle: {
+              backgroundColor:
+                theme === "dark" ? colors.headerDark : colors.headerLight,
+            },
+          }}
+        >
+          <Tab.Screen
+            name="Chats"
+            component={Chats}
+            options={{
+              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Chats"),
+            }}
+          />
+          <Tab.Screen
+            name="Status"
+            component={Status}
+            options={{
+              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Status"),
+            }}
+          />
+          <Tab.Screen
+            name="Calls"
+            component={Calls}
+            options={{
+              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Calls"),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
     </View>
   );
 }

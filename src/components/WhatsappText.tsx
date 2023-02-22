@@ -23,7 +23,7 @@ export default function WhatsappText({
             fontFamily: fontsLoaded ? `${fontFamily}` : "System",
             color:
               theme === "dark"
-                ? colors.darkComponentColor
+                ? colors.darkPrimaryComponentColor
                 : colors.lightComponentColor,
           },
           overrideStyles,

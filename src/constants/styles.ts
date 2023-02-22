@@ -15,6 +15,7 @@ const stylesConstants = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 10,
   },
   iconContainer: {
     flexDirection: "row",
@@ -30,6 +31,13 @@ const stylesConstants = StyleSheet.create({
   menuText: {
     fontSize: 16,
   },
+  tabViewText: {
+    fontSize: 14,
+  },
+  tabViewPage: {
+    padding: 10,
+    flex: 1,
+  },
 });
 export default {
   dark: StyleSheet.create({
@@ -40,7 +48,7 @@ export default {
     },
     icon: {
       ...stylesConstants.icon,
-      color: colors.darkComponentColor,
+      color: colors.darkPrimaryComponentColor,
     },
     popUpMenu: {
       ...stylesConstants.popUpMenu,
@@ -49,6 +57,10 @@ export default {
     menuText: {
       ...stylesConstants.menuText,
       color: colors.lightComponentColor,
+    },
+    tabViewPage: {
+      ...stylesConstants.tabViewPage,
+      backgroundColor: colors.darkSecondaryComponentColor,
     },
   }),
   light: StyleSheet.create({
@@ -67,7 +79,11 @@ export default {
     },
     menuText: {
       ...stylesConstants.menuText,
-      color: colors.lightTextColor,
+      color: colors.darkSecondaryComponentColor,
+    },
+    tabViewPage: {
+      ...stylesConstants.tabViewPage,
+      backgroundColor: colors.lightComponentColor,
     },
   }),
 };
