@@ -1,11 +1,26 @@
 import { StatusBar } from "expo-status-bar";
-import Router from "./src/Router";
+import MaterialTopRouter from "./src/MaterialTopRouter";
 import { ThemeProvider } from "./src/context/ThemeContext";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Archived from "./src/pages/Archived";
 export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
-    <ThemeProvider>
-      <StatusBar style="light" translucent={false} />
-      <Router></Router>
-    </ThemeProvider>
+    <NavigationContainer>
+      <ThemeProvider>
+        <StatusBar style="light" translucent={false} />
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="MaterialTopRouter"
+        >
+          <Stack.Screen
+            name="MaterialTopRouter"
+            component={MaterialTopRouter}
+          />
+          <Stack.Screen name="Archived" component={Archived} />
+        </Stack.Navigator>
+      </ThemeProvider>
+    </NavigationContainer>
   );
 }

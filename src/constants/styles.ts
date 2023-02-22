@@ -8,9 +8,6 @@ const stylesConstants = StyleSheet.create({
   header: {
     padding: 20,
   },
-  bigText: {
-    fontSize: 20,
-  },
   rowSpaceBetweenContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -29,11 +26,17 @@ const stylesConstants = StyleSheet.create({
   popUpMenu: {
     width: deviceSize.width / 2,
   },
+  bigText: {
+    fontSize: 20,
+  },
   middleText: {
     fontSize: 16,
   },
   smallText: {
     fontSize: 14,
+  },
+  smallestText: {
+    fontSize: 12,
   },
   tabViewPage: {
     padding: 20,

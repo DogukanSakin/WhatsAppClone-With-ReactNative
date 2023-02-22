@@ -1,84 +1,89 @@
-export default [
-  {
-    id: 1,
-    name: "John Doe",
-    last_message: "Hello, how are you?",
-    last_message_time: "14:26",
-    avatar: require("../../assets/dummyImages/1.png"),
-    read_status: "read",
-    last_message_sender_id: "MY_ID",
-  },
-  {
-    id: 2,
-    name: "Jane Summer",
-    last_message: "Where are you?",
-    last_message_time: "12:23",
-    avatar: require("../../assets/dummyImages/2.png"),
-    read_status: "unread",
-  },
-  {
-    id: 3,
-    name: "Bob Marley",
-    last_message_time: "2/19/23",
-    avatar: require("../../assets/dummyImages/3.png"),
-    read_status: "unread",
-  },
-  {
-    id: 4,
-    name: "Tom Cruise",
-    last_message_time: "2/15/23",
-    last_message: "Okey then, see you later",
-    avatar: require("../../assets/dummyImages/4.png"),
-    read_status: "unread",
-  },
-  {
-    id: 5,
-    name: "George Clooney",
-    last_message_time: "2/11/23",
-    last_message: "No, I'm not",
-    avatar: require("../../assets/dummyImages/5.png"),
-    read_status: "unread",
-    last_message_sender_id: "MY_ID",
-  },
-  {
-    id: 6,
-    name: "Laura Palmer",
-    last_message_time: "2/7/23",
-    last_message: "Bye",
-    avatar: require("../../assets/dummyImages/6.png"),
-    read_status: "read",
-    last_message_sender_id: "MY_ID",
-  },
-  {
-    id: 7,
-    name: "Frank Sinatra",
-    last_message_time: "2/5/23",
-    last_message: "Thank you",
-    avatar: require("../../assets/dummyImages/7.png"),
-    read_status: "read",
-    last_message_sender_id: "MY_ID",
-  },
-  {
-    id: 8,
-    name: "Lara Croft",
-    last_message_time: "2/1/23",
-    last_message: "Good bye!",
-    avatar: require("../../assets/dummyImages/8.png"),
-  },
-  {
-    id: 9,
-    name: "Emely Blunt",
-    last_message_time: "1/26/23",
-    last_message: "See you later",
-    avatar: require("../../assets/dummyImages/9.png"),
-  },
-  {
-    id: 10,
-    name: "David Beckham",
-    last_message_time: "1/24/23",
-    last_message: "Okey bro!",
-    avatar: require("../../assets/dummyImages/10.png"),
-    read_status: "read",
-    last_message_sender_id: "MY_ID",
-  },
+import Chat from "../models/Chat";
+
+export default <Chat[]>[
+  new Chat(
+    1,
+    "John Doe",
+    require("../../assets/dummyImages/1.png"),
+    "read",
+    "14:26",
+    "Hello, how are you?",
+    "MY_ID"
+  ),
+  new Chat(
+    2,
+    "Jane Summer",
+    require("../../assets/dummyImages/2.png"),
+    "unread",
+    "12:23",
+    "Where are you?"
+  ),
+  new Chat(
+    3,
+    "Bob Marley",
+    require("../../assets/dummyImages/3.png"),
+    "unread",
+    "2/19/23"
+  ),
+  new Chat(
+    4,
+    "Tom Cruise",
+    require("../../assets/dummyImages/4.png"),
+    "unread",
+    "2/15/23",
+    "Okey then, see you later"
+  ),
+  new Chat(
+    5,
+    "George Clooney",
+    require("../../assets/dummyImages/5.png"),
+    "unread",
+    "2/11/23",
+    "No, I'm not",
+    "MY_ID"
+  ),
+  new Chat(
+    6,
+    "Laura Palmer",
+    require("../../assets/dummyImages/6.png"),
+    "read",
+    "2/7/23",
+    "Bye",
+    "MY_ID"
+  ),
+  new Chat(
+    7,
+    "Frank Sinatra",
+    require("../../assets/dummyImages/7.png"),
+    "read",
+    "2/5/23",
+    "Thank you",
+    "MY_ID"
+  ),
+  new Chat(
+    8,
+    "Lara Croft",
+    require("../../assets/dummyImages/8.png"),
+    "read",
+    "2/1/23",
+    "Good bye!",
+    "MY_ID"
+  ),
+  new Chat(
+    9,
+    "Emely Blunt",
+    require("../../assets/dummyImages/9.png"),
+    "read",
+    "1/26/23",
+    "See you later"
+  ),
+  new Chat(
+    10,
+    "David Beckham",
+    require("../../assets/dummyImages/10.png"),
+    "read",
+    "1/24/23",
+    "Okey bro!",
+    "MY_ID"
+  ),
 ];

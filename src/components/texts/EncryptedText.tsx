@@ -22,13 +22,17 @@ export default function EncryptedText() {
       />
       <WhatsappText
         text="Your personal messages are "
-        overrideStyles={[styles[currentTheme].bottomText, { fontSize: 12 }]}
+        overrideStyles={[
+          styles[currentTheme].bottomText,
+          styles[currentTheme].smallestText,
+        ]}
       />
       <WhatsappText
         text="end-to-end encrypted"
         overrideStyles={[
           styles[currentTheme].bottomText,
-          { color: colors.greenComponentColor, fontSize: 12 },
+          styles[currentTheme].smallestText,
+          { color: colors.greenComponentColor },
         ]}
       />
     </View>

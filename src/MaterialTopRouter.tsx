@@ -9,8 +9,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Calls from "./pages/Calls";
 import Chats from "./pages/Chats";
 import Status from "./pages/Status";
-import { NavigationContainer } from "@react-navigation/native";
 import colors from "./constants/colors";
+import { chatsPageActions } from "./constants/actions";
 export default function Router() {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
@@ -54,49 +54,48 @@ export default function Router() {
               size={20}
               style={styles[currentTheme].icon}
             />
-            <PopUpMenu />
+            <PopUpMenu actions={chatsPageActions} />
           </View>
         </View>
       </View>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            tabBarIndicatorStyle: {
-              backgroundColor:
-                theme === "dark"
-                  ? colors.greenComponentColor
-                  : colors.lightComponentColor,
-            },
 
-            tabBarStyle: {
-              backgroundColor:
-                theme === "dark" ? colors.headerDark : colors.headerLight,
-            },
+      <Tab.Navigator
+        screenOptions={{
+          tabBarIndicatorStyle: {
+            backgroundColor:
+              theme === "dark"
+                ? colors.greenComponentColor
+                : colors.lightComponentColor,
+          },
+
+          tabBarStyle: {
+            backgroundColor:
+              theme === "dark" ? colors.headerDark : colors.headerLight,
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Chats"
+          component={Chats}
+          options={{
+            tabBarLabel: ({ focused }) => tabViewTitle(focused, "Chats"),
           }}
-        >
-          <Tab.Screen
-            name="Chats"
-            component={Chats}
-            options={{
-              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Chats"),
-            }}
-          />
-          <Tab.Screen
-            name="Status"
-            component={Status}
-            options={{
-              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Status"),
-            }}
-          />
-          <Tab.Screen
-            name="Calls"
-            component={Calls}
-            options={{
-              tabBarLabel: ({ focused }) => tabViewTitle(focused, "Calls"),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+        />
+        <Tab.Screen
+          name="Status"
+          component={Status}
+          options={{
+            tabBarLabel: ({ focused }) => tabViewTitle(focused, "Status"),
+          }}
+        />
+        <Tab.Screen
+          name="Calls"
+          component={Calls}
+          options={{
+            tabBarLabel: ({ focused }) => tabViewTitle(focused, "Calls"),
+          }}
+        />
+      </Tab.Navigator>
     </View>
   );
 }

@@ -5,8 +5,9 @@ import ThemeContext from "../../context/ThemeContext";
 import WhatsappText from "../texts/WhatsappText";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../constants/colors";
+import Chat from "../../models/Chat";
 interface IProps {
-  item: any;
+  item: Chat;
 }
 export default function ChatCard({ item }: IProps) {
   const { theme } = useContext(ThemeContext);

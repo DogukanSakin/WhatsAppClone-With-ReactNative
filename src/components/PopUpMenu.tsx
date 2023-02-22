@@ -4,7 +4,11 @@ import { Menu, MenuItem } from "react-native-material-menu";
 import styles from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "./texts/WhatsappText";
-export default function PopUpMenu() {
+import Action from "../models/Action";
+interface IProps {
+  actions: Action[];
+}
+export default function PopUpMenu({ actions }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
   const [visible, setVisible] = useState(false);
@@ -25,51 +29,21 @@ export default function PopUpMenu() {
       }
       onRequestClose={hideMenu}
     >
-      <MenuItem
-        onPress={hideMenu}
-        children={
-          <WhatsappText
-            text="New group"
-            overrideStyles={styles[currentTheme].menuText}
-          ></WhatsappText>
-        }
-      ></MenuItem>
-      <MenuItem
-        onPress={hideMenu}
-        children={
-          <WhatsappText
-            text="New broadcast"
-            overrideStyles={styles[currentTheme].menuText}
-          ></WhatsappText>
-        }
-      ></MenuItem>
-      <MenuItem
-        onPress={hideMenu}
-        children={
-          <WhatsappText
-            text="Linked devices"
-            overrideStyles={styles[currentTheme].menuText}
-          ></WhatsappText>
-        }
-      ></MenuItem>
-      <MenuItem
-        onPress={hideMenu}
-        children={
-          <WhatsappText
-            text="Starred messages"
-            overrideStyles={styles[currentTheme].menuText}
-          ></WhatsappText>
-        }
-      ></MenuItem>
-      <MenuItem
-        onPress={hideMenu}
-        children={
-          <WhatsappText
-            text="Settings"
-            overrideStyles={styles[currentTheme].menuText}
-          ></WhatsappText>
-        }
-      ></MenuItem>
+      {actions &&
+        actions.map((data: Action) => {
+          return (
+            <MenuItem
+              key={data.actionName}
+              onPress={hideMenu}
+              children={
+                <WhatsappText
+                  text={data.actionName}
+                  overrideStyles={styles[currentTheme].menuText}
+                ></WhatsappText>
+              }
+            ></MenuItem>
+          );
+        })}
     </Menu>
   );
 }
