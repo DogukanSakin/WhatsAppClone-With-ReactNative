@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import colors from "./colors";
 const deviceSize = Dimensions.get("window");
-const stylesConstants = StyleSheet.create({
+export const stylesConstants = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -54,6 +54,21 @@ const stylesConstants = StyleSheet.create({
     height: 50,
     width: 50,
     resizeMode: "contain",
+  },
+  input: {
+    marginLeft: 10,
+    color: colors.darkPrimaryComponentColor,
+  },
+  floatingButton: {
+    borderRadius: 200,
+    position: "absolute",
+    width: 60,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    right: 20,
+    bottom: 20,
+    backgroundColor: colors.greenComponentColor,
   },
 });
 export default {

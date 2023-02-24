@@ -7,13 +7,18 @@ import WhatsappText from "./texts/WhatsappText";
 import Action from "../models/Action";
 interface IProps {
   actions: Action[];
+  onActionPress: (action: any) => void;
 }
-export default function PopUpMenu({ actions }: IProps) {
+export default function PopUpMenu({ actions, onActionPress }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
   const [visible, setVisible] = useState(false);
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
+  const handleSelectAction = (action: Action) => {
+    onActionPress(action);
+    hideMenu();
+  };
   return (
     <Menu
       style={styles[currentTheme].popUpMenu}
@@ -34,7 +39,7 @@ export default function PopUpMenu({ actions }: IProps) {
           return (
             <MenuItem
               key={data.actionName}
-              onPress={hideMenu}
+              onPress={() => handleSelectAction(data)}
               children={
                 <WhatsappText
                   text={data.actionName}

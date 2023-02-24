@@ -1,25 +1,73 @@
-import React, { useContext } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { View } from "react-native";
 import WhatsappText from "./components/texts/WhatsappText";
 import ThemeContext from "./context/ThemeContext";
-import styles from "./constants/styles";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import themeStyles, { stylesConstants } from "./constants/styles";
+import { Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 import PopUpMenu from "./components/PopUpMenu";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Calls from "./pages/Calls";
 import Chats from "./pages/Chats";
 import Status from "./pages/Status";
 import colors from "./constants/colors";
-import { chatsPageActions } from "./constants/actions";
-export default function Router() {
+import {
+  callsPageActions,
+  chatsPageActions,
+  statusPageActions,
+} from "./constants/actions";
+import Action from "./models/Action";
+import {
+  getFocusedRouteNameFromRoute,
+  useRoute,
+} from "@react-navigation/native";
+import Input from "./components/Input";
+export default function Router({ navigation }: any) {
+  const route = useRoute();
   const { theme } = useContext(ThemeContext);
-  const currentTheme = theme as keyof typeof styles;
+  const currentTheme = theme as keyof typeof themeStyles;
   const Tab = createMaterialTopTabNavigator();
+
+  const [searchBarVisible, setSearchBarVisible] = useState(false);
+  const [currentRouteName, setCurrentRouteName] = useState<string>("Chats");
+  const [searchAValueInChatData, setSearchAValueInChatData] =
+    useState<string>("");
+  const [searchAValueInStatusData, setSearchAValueInStatusData] =
+    useState<string>("");
+  const [searchAValueInCallsData, setSearchAValueInCallsData] =
+    useState<string>("");
+  const menuAction = (selectedAction?: Action) => {
+    if (currentRouteName === "Chats") {
+      switch (selectedAction?.actionName) {
+        case "New group":
+          return navigation.navigate("NewGroup");
+      }
+    }
+  };
+  const ChatsPage = () => (
+    <Chats navigation={navigation} searchInChat={searchAValueInChatData} />
+  );
+  const StatusPage = () => <Status />;
+  const CallsPage = () => <Calls />;
+  useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    searchBarVisible === true && setSearchBarVisible(false);
+    routeName && setCurrentRouteName(routeName);
+  }, [navigation, route]);
+  const handleSearch = (value: string) => {
+    switch (currentRouteName) {
+      case "Chats":
+        return setSearchAValueInChatData(value);
+      case "Status":
+        return setSearchAValueInStatusData(value);
+      case "Calls":
+        return setSearchAValueInCallsData(value);
+    }
+  };
   const tabViewTitle = (focused: boolean, title: string) => (
     <WhatsappText
       text={title}
       overrideStyles={[
-        styles[currentTheme].smallText,
+        stylesConstants.smallText,
         {
           color: focused
             ? theme === "dark"
@@ -34,29 +82,60 @@ export default function Router() {
   );
 
   return (
-    <View style={styles[currentTheme].container}>
-      <View style={styles[currentTheme].header}>
-        <View style={styles[currentTheme].headerInnerContainer}>
-          <WhatsappText
-            fontFamily="bold"
-            text="WhatsApp"
-            overrideStyles={styles[currentTheme].headerText}
-          ></WhatsappText>
-
-          <View style={styles[currentTheme].rowSpaceBetweenContainer}>
-            <Feather
-              name="camera"
-              size={20}
-              style={styles[currentTheme].icon}
-            ></Feather>
-            <Ionicons
-              name="search-outline"
-              size={20}
-              style={styles[currentTheme].icon}
+    <View style={stylesConstants.container}>
+      <View style={themeStyles[currentTheme].header}>
+        {searchBarVisible === true ? (
+          <View style={stylesConstants.rowContainer}>
+            <AntDesign
+              onPress={() => setSearchBarVisible(false)}
+              name="arrowleft"
+              size={24}
+              color={
+                theme === "dark"
+                  ? colors.darkPrimaryComponentColor
+                  : colors.lightComponentColor
+              }
             />
-            <PopUpMenu actions={chatsPageActions} />
+            <Input
+              placeholder="Search..."
+              onChangeText={(text: string) => handleSearch(text)}
+            />
           </View>
-        </View>
+        ) : (
+          <>
+            <View style={themeStyles[currentTheme].headerInnerContainer}>
+              <WhatsappText
+                fontFamily="bold"
+                text="WhatsApp"
+                overrideStyles={themeStyles[currentTheme].headerText}
+              ></WhatsappText>
+
+              <View style={stylesConstants.rowSpaceBetweenContainer}>
+                <Feather
+                  name="camera"
+                  size={20}
+                  style={themeStyles[currentTheme].icon}
+                ></Feather>
+                <Ionicons
+                  onPress={() => setSearchBarVisible(true)}
+                  name="search-outline"
+                  size={20}
+                  style={themeStyles[currentTheme].icon}
+                />
+                <PopUpMenu
+                  actions={
+                    currentRouteName === "Chats"
+                      ? chatsPageActions
+                      : currentRouteName === "Status"
+                      ? statusPageActions
+                      : callsPageActions
+                  }
+                  onActionPress={menuAction}
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
 
       <Tab.Navigator
@@ -76,21 +155,21 @@ export default function Router() {
       >
         <Tab.Screen
           name="Chats"
-          component={Chats}
+          component={ChatsPage}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Chats"),
           }}
         />
         <Tab.Screen
           name="Status"
-          component={Status}
+          component={StatusPage}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Status"),
           }}
         />
         <Tab.Screen
           name="Calls"
-          component={Calls}
+          component={CallsPage}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Calls"),
           }}

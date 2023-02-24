@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, FlatList, Pressable } from "react-native";
-import styles from "../constants/styles";
+import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
 import EncryptedText from "../components/texts/EncryptedText";
@@ -9,15 +9,32 @@ import colors from "../constants/colors";
 import chatsData from "../dummyData/chats";
 import ChatCard from "../components/cards/ChatCard";
 import Chat from "../models/Chat";
-export default function Chats({ navigation }: any) {
+import FloatingButton from "../components/FloatingButton";
+interface IProps {
+  navigation: any;
+  searchInChat: string;
+}
+export default function Chats({ navigation, searchInChat }: IProps) {
   const { theme } = useContext(ThemeContext);
-  const currentTheme = theme as keyof typeof styles;
+  const currentTheme = theme as keyof typeof themeStyles;
   const renderChatsData = ({ item }: any) => <ChatCard item={item as Chat} />;
+  const [data, setData] = useState<Chat[]>(chatsData);
+  useEffect(() => {
+    if (searchInChat.trim() !== "") {
+      const filteredChats = chatsData.filter((chat: Chat) => {
+        return chat.name.toLowerCase().includes(searchInChat.toLowerCase());
+      });
+      setData(filteredChats);
+    }
+  }, [searchInChat]);
   return (
-    <View style={styles[currentTheme].tabViewPage}>
+    <View style={themeStyles[currentTheme].tabViewPage}>
       <Pressable
         onPress={() => navigation.navigate("Archived")}
-        style={[styles[currentTheme].pageInnerContainer, { marginBottom: 10 }]}
+        style={[
+          themeStyles[currentTheme].pageInnerContainer,
+          { marginBottom: 10 },
+        ]}
       >
         <Foundation
           name="archive"
@@ -32,17 +49,18 @@ export default function Chats({ navigation }: any) {
           text="Archived"
           fontFamily="bold"
           overrideStyles={[
-            styles[currentTheme].pageInnerText,
+            themeStyles[currentTheme].pageInnerText,
             { marginLeft: 20 },
           ]}
         />
       </Pressable>
       <FlatList
-        data={chatsData}
+        data={data}
         renderItem={renderChatsData}
         keyExtractor={(item, index) => item.id.toString()}
       />
       <EncryptedText />
+      <FloatingButton iconName="chat" />
     </View>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, Image } from "react-native";
-import styles from "../../constants/styles";
+import themeStyles, { stylesConstants } from "../../constants/styles";
 import ThemeContext from "../../context/ThemeContext";
 import WhatsappText from "../texts/WhatsappText";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -11,20 +11,21 @@ interface IProps {
 }
 export default function ChatCard({ item }: IProps) {
   const { theme } = useContext(ThemeContext);
-  const currentTheme = theme as keyof typeof styles;
+  const currentTheme = theme as keyof typeof themeStyles;
+
   return (
-    <View style={[styles[currentTheme].rowContainer, { marginTop: 20 }]}>
+    <View style={[stylesConstants.rowContainer, { marginTop: 20 }]}>
       <Image
         source={item.avatar}
-        style={styles[currentTheme].cardImageOrIconContainer}
+        style={stylesConstants.cardImageOrIconContainer}
       />
       <View style={{ marginLeft: 16, flex: 1 }}>
         <WhatsappText
           fontFamily="bold"
           text={item.name}
-          overrideStyles={styles[currentTheme].pageInnerText}
+          overrideStyles={themeStyles[currentTheme].pageInnerText}
         />
-        <View style={styles[currentTheme].rowAlignContainer}>
+        <View style={stylesConstants.rowAlignContainer}>
           {item.last_message_sender_id === "MY_ID" && (
             <Ionicons
               style={{ marginRight: 4 }}
@@ -41,8 +42,8 @@ export default function ChatCard({ item }: IProps) {
             <WhatsappText
               text={item.last_message}
               overrideStyles={[
-                styles[currentTheme].bottomText,
-                styles[currentTheme].middleText,
+                themeStyles[currentTheme].bottomText,
+                stylesConstants.middleText,
                 { marginTop: 6 },
               ]}
             />
@@ -57,8 +58,8 @@ export default function ChatCard({ item }: IProps) {
               <WhatsappText
                 text="This message was deleted."
                 overrideStyles={[
-                  styles[currentTheme].bottomText,
-                  styles[currentTheme].middleText,
+                  themeStyles[currentTheme].bottomText,
+                  stylesConstants.middleText,
                   { marginTop: 6, fontStyle: "italic" },
                 ]}
               />
@@ -69,8 +70,8 @@ export default function ChatCard({ item }: IProps) {
       <WhatsappText
         text={item.last_message_time}
         overrideStyles={[
-          styles[currentTheme].bottomText,
-          styles[currentTheme].smallText,
+          themeStyles[currentTheme].bottomText,
+          stylesConstants.smallText,
         ]}
       />
     </View>
