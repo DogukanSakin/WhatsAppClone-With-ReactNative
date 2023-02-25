@@ -26,25 +26,30 @@ export default function Router({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
   const Tab = createMaterialTopTabNavigator();
-
   const [searchBarVisible, setSearchBarVisible] = useState(false);
   const [currentRouteName, setCurrentRouteName] = useState<string>("Chats");
-  const [searchAValueInChatData, setSearchAValueInChatData] =
-    useState<string>("");
-  const [searchAValueInStatusData, setSearchAValueInStatusData] =
-    useState<string>("");
-  const [searchAValueInCallsData, setSearchAValueInCallsData] =
-    useState<string>("");
+  const [searchInputValue, setSearchInputValue] = useState<string>("");
   const menuAction = (selectedAction?: Action) => {
     if (currentRouteName === "Chats") {
       switch (selectedAction?.actionName) {
-        case "New group":
-          return navigation.navigate("NewGroup");
+        case "New Group":
+          return navigation.navigate("SelectContact", {
+            headerText: "New Group",
+          });
+        case "New Boardcast":
+          return navigation.navigate("SelectContact", {
+            headerText: "New Boardcast",
+          });
+        case "Linked Devices":
+          return navigation.navigate("LinkedDevices");
       }
     }
   };
   const ChatsPage = () => (
-    <Chats navigation={navigation} searchInChat={searchAValueInChatData} />
+    <Chats
+      navigation={navigation}
+      searchInChat={currentRouteName === "Chats" ? searchInputValue : ""}
+    />
   );
   const StatusPage = () => <Status />;
   const CallsPage = () => <Calls />;
@@ -53,16 +58,7 @@ export default function Router({ navigation }: any) {
     searchBarVisible === true && setSearchBarVisible(false);
     routeName && setCurrentRouteName(routeName);
   }, [navigation, route]);
-  const handleSearch = (value: string) => {
-    switch (currentRouteName) {
-      case "Chats":
-        return setSearchAValueInChatData(value);
-      case "Status":
-        return setSearchAValueInStatusData(value);
-      case "Calls":
-        return setSearchAValueInCallsData(value);
-    }
-  };
+
   const tabViewTitle = (focused: boolean, title: string) => (
     <WhatsappText
       text={title}
@@ -98,7 +94,7 @@ export default function Router({ navigation }: any) {
             />
             <Input
               placeholder="Search..."
-              onChangeText={(text: string) => handleSearch(text)}
+              onChangeText={(text: string) => setSearchInputValue(text)}
             />
           </View>
         ) : (

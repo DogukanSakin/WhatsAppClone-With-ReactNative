@@ -5,7 +5,7 @@ import styles from "../../constants/styles";
 import WhatsappText from "./WhatsappText";
 import { FontAwesome } from "@expo/vector-icons";
 import colors from "../../constants/colors";
-export default function EncryptedText() {
+function EncryptedText() {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
   return (
@@ -38,3 +38,4 @@ export default function EncryptedText() {
     </View>
   );
 }
+export default React.memo(EncryptedText);

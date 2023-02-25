@@ -6,4 +6,6 @@ export default {
   darkSecondaryComponentColor: "#121b22",
   greenComponentColor: "#00a884",
   lightInactiveColor: "#b4d9d2",
+  darkThirdyBackgroudColor: "#0b141b",
+  lightSecondaryComponentColor: "#f7f8fa",
 };

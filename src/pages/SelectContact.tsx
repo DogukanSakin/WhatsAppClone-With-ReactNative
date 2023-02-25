@@ -10,15 +10,47 @@ import EncryptedText from "../components/texts/EncryptedText";
 import Input from "../components/Input";
 import Contact from "../models/Contact";
 import ContactCard from "../components/cards/ContactCard";
-import FloatingButton from "../components/FloatingButton";
+import FloatingButton from "../components/buttons/FloatingButton";
 
-export default function NewGroup({ navigation }: any) {
+export default function NewGroup({ navigation, route }: any) {
+  const { headerText } = route.params;
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
   const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
   const [data, setData] = useState<Contact[]>(contactData);
+  const [selectedContacts, setSelectedContacts] = useState<Contact[] | null>(
+    []
+  );
+  const handleSelectContact = (item: Contact) => {
+    const filteredContacts = contactData.filter((contact: Contact) => {
+      if (contact.id === item.id) {
+        item.isSelected = !item.isSelected;
+      }
+      return contact;
+    });
+    setData(filteredContacts);
+
+    const selectedContacts = filteredContacts.filter((contact: Contact) => {
+      return contact.isSelected === true;
+    });
+    selectedContacts.length > 0
+      ? setSelectedContacts(selectedContacts)
+      : setSelectedContacts(null);
+  };
   const renderContacts = ({ item }: any) => (
-    <ContactCard item={item as Contact} />
+    <ContactCard
+      item={item as Contact}
+      onPress={() => handleSelectContact(item)}
+    />
+  );
+  const renderSelectedContacts = ({ item }: any) => (
+    <ContactCard
+      showRemoveIcon
+      overrideStyles={{ marginRight: 20, marginBottom: 10 }}
+      showCardText={false}
+      item={item as Contact}
+      onPress={() => handleSelectContact(item)}
+    />
   );
   const handleSearch = (text: string) => {
     if (text.trim() !== "") {
@@ -57,7 +89,7 @@ export default function NewGroup({ navigation }: any) {
             ) : (
               <WhatsappText
                 fontFamily="bold"
-                text="New group"
+                text={headerText}
                 overrideStyles={[
                   stylesConstants.bigText,
                   { color: colors.lightComponentColor, marginLeft: 30 },
@@ -76,10 +108,20 @@ export default function NewGroup({ navigation }: any) {
         </View>
       </View>
       <View style={themeStyles[currentTheme].tabViewPage}>
+        {selectedContacts !== null && (
+          <View>
+            <FlatList
+              data={selectedContacts}
+              horizontal={true}
+              renderItem={renderSelectedContacts}
+            ></FlatList>
+          </View>
+        )}
+
         <FlatList
           data={data}
           renderItem={renderContacts}
-          keyExtractor={(item, index) => item.name.toString()}
+          keyExtractor={(item, index) => item.id.toString()}
         />
         <FloatingButton iconName="arrowright" iconPacket="AntDesign" />
         <EncryptedText />

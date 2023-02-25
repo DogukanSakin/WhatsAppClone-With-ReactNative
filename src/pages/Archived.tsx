@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";

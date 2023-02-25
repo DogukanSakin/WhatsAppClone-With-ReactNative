@@ -9,6 +9,7 @@ interface IProps {
 }
 export default function Input({ onChangeText, placeholder }: IProps) {
   const { fontsLoaded } = useFonts();
+
   return (
     <TextInput
       onChangeText={(text: string) => onChangeText(text)}

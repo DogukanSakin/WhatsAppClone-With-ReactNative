@@ -39,8 +39,10 @@ export const stylesConstants = StyleSheet.create({
     fontSize: 12,
   },
   tabViewPage: {
-    padding: 20,
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
   },
   bottomText: {
     color: colors.darkPrimaryComponentColor,
@@ -69,6 +71,30 @@ export const stylesConstants = StyleSheet.create({
     right: 20,
     bottom: 20,
     backgroundColor: colors.greenComponentColor,
+  },
+  cardBottomIconContainer: {
+    height: 24,
+    width: 24,
+    borderRadius: 200,
+    position: "absolute",
+    right: -4,
+    bottom: -4,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 3,
+  },
+  tabViewPageInfoBox: {
+    justifyContent: "center",
+    padding: 10,
+    marginTop: 20,
+    borderRadius: 10,
+  },
+  whatsappButtonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.headerLight,
+    borderRadius: 50,
+    padding: 6,
   },
 });
 export default {
@@ -109,6 +135,14 @@ export default {
     pageInnerText: {
       ...stylesConstants.middleText,
       color: colors.lightComponentColor,
+    },
+    cardBottomIconContainer: {
+      ...stylesConstants.cardBottomIconContainer,
+      borderColor: colors.darkSecondaryComponentColor,
+    },
+    tabViewPageInfoBox: {
+      ...stylesConstants.tabViewPageInfoBox,
+      backgroundColor: colors.darkSecondaryComponentColor,
     },
   }),
   light: StyleSheet.create({
@@ -151,6 +185,14 @@ export default {
     pageInnerText: {
       ...stylesConstants.middleText,
       color: colors.darkSecondaryComponentColor,
+    },
+    cardBottomIconContainer: {
+      ...stylesConstants.cardBottomIconContainer,
+      borderColor: colors.lightComponentColor,
+    },
+    tabViewPageInfoBox: {
+      ...stylesConstants.tabViewPageInfoBox,
+      backgroundColor: colors.lightSecondaryComponentColor,
     },
   }),
 };

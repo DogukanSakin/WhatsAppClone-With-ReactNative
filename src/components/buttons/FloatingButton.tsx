@@ -1,14 +1,14 @@
 import React from "react";
 import { Pressable } from "react-native";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
-import { stylesConstants } from "../constants/styles";
-import colors from "../constants/colors";
+import { stylesConstants } from "../../constants/styles";
+import colors from "../../constants/colors";
 interface IProps {
   iconName: any;
   onPress?: () => void;
   iconPacket?: "MaterialIcons" | "AntDesign";
 }
-export default function FloatingButton({
+function FloatingButton({
   iconName,
   onPress,
   iconPacket = "MaterialIcons",
@@ -32,3 +32,4 @@ export default function FloatingButton({
     </Pressable>
   );
 }
+export default React.memo(FloatingButton);

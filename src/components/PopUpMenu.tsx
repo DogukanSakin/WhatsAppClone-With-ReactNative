@@ -19,6 +19,7 @@ export default function PopUpMenu({ actions, onActionPress }: IProps) {
     onActionPress(action);
     hideMenu();
   };
+
   return (
     <Menu
       style={styles[currentTheme].popUpMenu}
