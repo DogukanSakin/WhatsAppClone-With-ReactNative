@@ -4,4 +4,5 @@ export type RootStackParamList = {
   SelectContact: { headerText: string };
   Chats: undefined;
   LinkedDevices: undefined;
+  StarredMessages: undefined;
 };

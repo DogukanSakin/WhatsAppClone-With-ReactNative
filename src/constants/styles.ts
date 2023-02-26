@@ -96,6 +96,12 @@ export const stylesConstants = StyleSheet.create({
     borderRadius: 50,
     padding: 6,
   },
+  messageCardContainer: {
+    padding: 10,
+    width: deviceSize.width - 100,
+    borderRadius: 10,
+    borderTopLeftRadius: 0,
+  },
 });
 export default {
   dark: StyleSheet.create({
@@ -142,6 +148,10 @@ export default {
     },
     tabViewPageInfoBox: {
       ...stylesConstants.tabViewPageInfoBox,
+      backgroundColor: colors.darkSecondaryComponentColor,
+    },
+    messageCardContainer: {
+      ...stylesConstants.messageCardContainer,
       backgroundColor: colors.darkSecondaryComponentColor,
     },
   }),
@@ -193,6 +203,10 @@ export default {
     tabViewPageInfoBox: {
       ...stylesConstants.tabViewPageInfoBox,
       backgroundColor: colors.lightSecondaryComponentColor,
+    },
+    messageCardContainer: {
+      ...stylesConstants.messageCardContainer,
+      backgroundColor: colors.greenComponentColor,
     },
   }),
 };

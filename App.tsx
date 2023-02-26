@@ -7,6 +7,7 @@ import Archived from "./src/pages/Archived";
 import SelectContact from "./src/pages/SelectContact";
 import { RootStackParamList } from "./src/constants/rootStackParamList";
 import LinkedDevices from "./src/pages/LinkedDevices";
+import StarredMessages from "./src/pages/StarredMessages";
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="Archived" component={Archived} />
           <Stack.Screen name="SelectContact" component={SelectContact} />
           <Stack.Screen name="LinkedDevices" component={LinkedDevices} />
+          <Stack.Screen name="StarredMessages" component={StarredMessages} />
         </Stack.Navigator>
       </ThemeProvider>
     </NavigationContainer>

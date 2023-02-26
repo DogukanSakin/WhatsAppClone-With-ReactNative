@@ -4,7 +4,7 @@ export const chatsPageActions = <Action[]>[
   new Action("New Group"),
   new Action("New Boardcast"),
   new Action("Linked Devices"),
-  new Action("Starred messages"),
+  new Action("Starred Messages"),
   new Action("Settings"),
 ];
 export const statusPageActions = <Action[]>[
@@ -15,3 +15,4 @@ export const callsPageActions = <Action[]>[
   new Action("Clear call log"),
   new Action("Settings"),
 ];
+export const starredMessagesPageActions = <Action[]>[new Action("Unstar all")];

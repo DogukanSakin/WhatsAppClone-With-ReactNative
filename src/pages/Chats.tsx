@@ -62,7 +62,12 @@ export default function Chats({ navigation, searchInChat }: IProps) {
         keyExtractor={(item, index) => item.id.toString()}
       />
       <EncryptedText />
-      <FloatingButton iconName="chat" />
+      <FloatingButton
+        iconName="chat"
+        onPress={() =>
+          navigation.navigate("SelectContact", { headerText: "Select contact" })
+        }
+      />
     </View>
   );
 }

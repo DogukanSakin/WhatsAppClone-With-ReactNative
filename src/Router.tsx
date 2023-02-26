@@ -26,7 +26,7 @@ export default function Router({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
   const Tab = createMaterialTopTabNavigator();
-  const [searchBarVisible, setSearchBarVisible] = useState(false);
+  const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
   const [currentRouteName, setCurrentRouteName] = useState<string>("Chats");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const menuAction = (selectedAction?: Action) => {
@@ -42,6 +42,8 @@ export default function Router({ navigation }: any) {
           });
         case "Linked Devices":
           return navigation.navigate("LinkedDevices");
+        case "Starred Messages":
+          return navigation.navigate("StarredMessages");
       }
     }
   };
