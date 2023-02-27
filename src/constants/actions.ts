@@ -8,7 +8,7 @@ export const chatsPageActions = <Action[]>[
   new Action("Settings"),
 ];
 export const statusPageActions = <Action[]>[
-  new Action("Status privacy"),
+  new Action("Status Privacy"),
   new Action("Settings"),
 ];
 export const callsPageActions = <Action[]>[

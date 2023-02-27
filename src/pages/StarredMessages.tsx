@@ -86,8 +86,8 @@ export default function StarredMessages({ navigation }: any) {
           themeStyles[currentTheme].tabViewPage,
 
           {
-            paddingLeft: 0,
-            paddingRight: 0,
+            paddingLeft: 10,
+            paddingRight: 10,
             backgroundColor:
               theme === "dark"
                 ? colors.darkThirdyBackgroudColor

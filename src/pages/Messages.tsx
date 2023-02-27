@@ -6,7 +6,7 @@ import ThemeContext from "../context/ThemeContext";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import colors from "../constants/colors";
 import WhatsappText from "../components/texts/WhatsappText";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import Contact from "../models/Contact";
 import contacts from "../dummyData/contacts";
 import messages from "../dummyData/messages";
@@ -14,6 +14,7 @@ import PopUpMenu from "../components/PopUpMenu";
 import { messagesPageActions } from "../constants/actions";
 import Message from "../models/Message";
 import MessageCard from "../components/cards/MessageCard";
+import Input from "../components/Input";
 type Props = NativeStackScreenProps<RootStackParamList, "Messages">;
 export default function Messages({ navigation, route }: Props) {
   const { chat } = route.params;
@@ -113,6 +114,30 @@ export default function Messages({ navigation, route }: Props) {
           renderItem={renderMessages}
           keyExtractor={(item, index) => item.id.toString()}
         ></FlatList>
+        <View style={stylesConstants.rowAlignContainer}>
+          <Input
+            placeholder="Message"
+            onChangeText={(t: string) => console.log(t)}
+            overrideStyles={{
+              flex: 1,
+              borderRadius: 20,
+              padding: 10,
+              backgroundColor:
+                theme === "dark"
+                  ? colors.headerDark
+                  : colors.lightComponentColor,
+            }}
+          />
+          <View
+            style={[stylesConstants.greenIconContainer, { marginLeft: 10 }]}
+          >
+            <FontAwesome5
+              name="microphone"
+              size={24}
+              color={colors.lightComponentColor}
+            />
+          </View>
+        </View>
       </ImageBackground>
     </View>
   );

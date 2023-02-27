@@ -9,11 +9,7 @@ interface IProps {
   placeholder: string;
   overrideStyles?: object;
 }
-export default function WhatsAppButton({
-  onPress,
-  placeholder,
-  overrideStyles,
-}: IProps) {
+function WhatsAppButton({ onPress, placeholder, overrideStyles }: IProps) {
   return (
     <Pressable
       style={[stylesConstants.whatsappButtonContainer, overrideStyles]}
@@ -28,3 +24,4 @@ export default function WhatsAppButton({
     </Pressable>
   );
 }
+export default React.memo(WhatsAppButton);

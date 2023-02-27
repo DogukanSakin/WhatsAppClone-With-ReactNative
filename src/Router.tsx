@@ -44,6 +44,15 @@ export default function Router({ navigation }: any) {
           return navigation.navigate("LinkedDevices");
         case "Starred Messages":
           return navigation.navigate("StarredMessages");
+        case "Settings":
+          return navigation.navigate("Settings");
+      }
+    } else if (currentRouteName === "Status") {
+      switch (selectedAction?.actionName) {
+        case "Settings":
+          return navigation.navigate("Settings");
+        case "Status Privacy":
+          return navigation.navigate("StatusPrivacy");
       }
     }
   };

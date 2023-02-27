@@ -69,7 +69,7 @@ export const stylesConstants = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     right: 20,
-    bottom: 20,
+    bottom: 30,
     backgroundColor: colors.greenComponentColor,
   },
   cardBottomIconContainer: {
@@ -96,8 +96,29 @@ export const stylesConstants = StyleSheet.create({
   },
   messageCardContainer: {
     padding: 10,
-
     borderRadius: 10,
+  },
+  greenIconContainer: {
+    backgroundColor: colors.greenComponentColor,
+    borderRadius: 200,
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  radioButton: {
+    height: 22,
+    width: 22,
+    borderRadius: 24,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  radioButtonSelected: {
+    width: 12,
+    height: 12,
+    borderRadius: 14,
+    backgroundColor: colors.greenComponentColor,
   },
 });
 export default {

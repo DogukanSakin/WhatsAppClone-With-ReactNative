@@ -9,6 +9,9 @@ import { RootStackParamList } from "./src/constants/rootStackParamList";
 import LinkedDevices from "./src/pages/LinkedDevices";
 import StarredMessages from "./src/pages/StarredMessages";
 import Messages from "./src/pages/Messages";
+import Settings from "./src/pages/Settings";
+import StatusPrivacy from "./src/pages/StatusPrivacy";
+
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -28,6 +31,8 @@ export default function App() {
           <Stack.Screen name="LinkedDevices" component={LinkedDevices} />
           <Stack.Screen name="StarredMessages" component={StarredMessages} />
           <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="StatusPrivacy" component={StatusPrivacy} />
         </Stack.Navigator>
       </ThemeProvider>
     </NavigationContainer>

@@ -7,4 +7,6 @@ export type RootStackParamList = {
   LinkedDevices: undefined;
   StarredMessages: undefined;
   Messages: { chat: Chat };
+  Settings: undefined;
+  StatusPrivacy: undefined;
 };
