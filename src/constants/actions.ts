@@ -16,3 +16,11 @@ export const callsPageActions = <Action[]>[
   new Action("Settings"),
 ];
 export const starredMessagesPageActions = <Action[]>[new Action("Unstar all")];
+export const messagesPageActions = <Action[]>[
+  new Action("View contact"),
+  new Action("Media, links, and docs"),
+  new Action("Search"),
+  new Action("Mute notifications"),
+  new Action("Wallpaper"),
+  new Action("More"),
+];

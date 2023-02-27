@@ -29,8 +29,8 @@ export default function StarredMessages({ navigation }: any) {
     }
   };
 
-  const renderStarredMessages = ({ item }: any) => (
-    <StarredMessageCard item={item as Message} />
+  const renderStarredMessages = ({ item }: { item: Message }) => (
+    <StarredMessageCard item={item} />
   );
   return (
     <View style={stylesConstants.container}>
@@ -84,7 +84,10 @@ export default function StarredMessages({ navigation }: any) {
       <View
         style={[
           themeStyles[currentTheme].tabViewPage,
+
           {
+            paddingLeft: 0,
+            paddingRight: 0,
             backgroundColor:
               theme === "dark"
                 ? colors.darkThirdyBackgroudColor

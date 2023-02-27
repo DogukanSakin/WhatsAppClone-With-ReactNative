@@ -14,7 +14,9 @@ import EncryptedText from "../components/texts/EncryptedText";
 export default function Archived({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-  const renderChatsData = ({ item }: any) => <ChatCard item={item as Chat} />;
+  const renderChatsData = ({ item }: { item: Chat }) => (
+    <ChatCard item={item} />
+  );
 
   return (
     <View style={stylesConstants.container}>
@@ -43,7 +45,7 @@ export default function Archived({ navigation }: any) {
           <PopUpMenu actions={archivedPageActions}></PopUpMenu>
         </View>
       </View>
-      <View style={themeStyles[currentTheme].tabViewPage}>
+      <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 10 }]}>
         <WhatsappText
           text="These chats stay archived when new messages are received. Tap to change"
           overrideStyles={[

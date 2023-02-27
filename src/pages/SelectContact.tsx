@@ -11,8 +11,10 @@ import Input from "../components/Input";
 import Contact from "../models/Contact";
 import ContactCard from "../components/cards/ContactCard";
 import FloatingButton from "../components/buttons/FloatingButton";
-
-export default function NewGroup({ navigation, route }: any) {
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../constants/rootStackParamList";
+type Props = NativeStackScreenProps<RootStackParamList, "SelectContact">;
+export default function NewGroup({ navigation, route }: Props) {
   const { headerText } = route.params;
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
@@ -37,18 +39,15 @@ export default function NewGroup({ navigation, route }: any) {
       ? setSelectedContacts(selectedContacts)
       : setSelectedContacts(null);
   };
-  const renderContacts = ({ item }: any) => (
-    <ContactCard
-      item={item as Contact}
-      onPress={() => handleSelectContact(item)}
-    />
+  const renderContacts = ({ item }: { item: Contact }) => (
+    <ContactCard item={item} onPress={() => handleSelectContact(item)} />
   );
-  const renderSelectedContacts = ({ item }: any) => (
+  const renderSelectedContacts = ({ item }: { item: Contact }) => (
     <ContactCard
       showRemoveIcon
       overrideStyles={{ marginRight: 20, marginBottom: 10 }}
       showCardText={false}
-      item={item as Contact}
+      item={item}
       onPress={() => handleSelectContact(item)}
     />
   );

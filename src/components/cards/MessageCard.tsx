@@ -24,44 +24,58 @@ export default function MessageCard({
   const currentTheme = theme as keyof typeof themeStyles;
   return (
     <View
-      style={[overrideStyles, themeStyles[currentTheme].messageCardContainer]}
-    >
-      <WhatsappText
-        text={item.message}
-        overrideStyles={[
-          stylesConstants.smallText,
-          {
-            color: colors.lightComponentColor,
-          },
-          textOverrideStyles,
-        ]}
-      />
-      <View
-        style={[
-          stylesConstants.rowAlignContainer,
-          {
-            position: "absolute",
-            right: 10,
-            bottom: 0,
-          },
-        ]}
-      >
-        {isMessageStarred === true && (
-          <AntDesign
-            name="star"
-            size={10}
-            style={{ marginRight: 5 }}
-            color={colors.darkPrimaryComponentColor}
-          />
-        )}
+      style={[
+        themeStyles[currentTheme].messageCardContainer,
+        {
+          alignSelf: item.senderID === "MY_ID" ? "flex-end" : "flex-start",
+          backgroundColor:
+            item.senderID === "MY_ID"
+              ? theme === "dark"
+                ? colors.headerLight
+                : colors.lightMessageCardBackground
+              : theme === "dark"
+              ? colors.headerDark
+              : colors.lightComponentColor,
+          borderTopLeftRadius: item.senderID !== "MY_ID" ? 0 : 10,
+          borderTopRightRadius: item.senderID === "MY_ID" ? 0 : 10,
+        },
 
+        overrideStyles,
+      ]}
+    >
+      <View style={stylesConstants.rowSpaceBetweenContainer}>
         <WhatsappText
-          text={item.sendTime}
+          text={item.message}
           overrideStyles={[
-            stylesConstants.smallestText,
-            stylesConstants.bottomText,
+            stylesConstants.smallText,
+            {
+              color:
+                theme === "dark"
+                  ? colors.lightComponentColor
+                  : colors.darkSecondaryComponentColor,
+            },
+            textOverrideStyles,
           ]}
-        ></WhatsappText>
+        />
+        <View style={[stylesConstants.rowAlignContainer, { marginTop: 10 }]}>
+          {isMessageStarred === true && (
+            <AntDesign
+              name="star"
+              size={10}
+              color={colors.darkPrimaryComponentColor}
+            />
+          )}
+
+          <WhatsappText
+            text={item.sendTime}
+            overrideStyles={[
+              { marginLeft: 5 },
+              stylesConstants.smallestText,
+              stylesConstants.bottomText,
+              { color: colors.darkPrimaryComponentColor },
+            ]}
+          ></WhatsappText>
+        </View>
       </View>
     </View>
   );

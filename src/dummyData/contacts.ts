@@ -1,6 +1,13 @@
 import Contact from "../models/Contact";
 export default <Contact[]>[
-  new Contact(1, "John Doe", require("../../assets/dummyImages/1.png")),
+  new Contact(
+    1,
+    "John Doe",
+    require("../../assets/dummyImages/1.png"),
+    "Available",
+    false,
+    "Last seen 2 hours ago"
+  ),
   new Contact(
     2,
     "Jane Summer",

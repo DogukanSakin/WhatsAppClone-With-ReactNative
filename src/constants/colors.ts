@@ -8,4 +8,5 @@ export default {
   lightInactiveColor: "#b4d9d2",
   darkThirdyBackgroudColor: "#0b141b",
   lightSecondaryComponentColor: "#f7f8fa",
+  lightMessageCardBackground: "#e7ffdb",
 };

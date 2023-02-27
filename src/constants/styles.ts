@@ -86,8 +86,6 @@ export const stylesConstants = StyleSheet.create({
   tabViewPageInfoBox: {
     justifyContent: "center",
     padding: 10,
-    marginTop: 20,
-    borderRadius: 10,
   },
   whatsappButtonContainer: {
     justifyContent: "center",
@@ -98,9 +96,8 @@ export const stylesConstants = StyleSheet.create({
   },
   messageCardContainer: {
     padding: 10,
-    width: deviceSize.width - 100,
+
     borderRadius: 10,
-    borderTopLeftRadius: 0,
   },
 });
 export default {
@@ -152,7 +149,6 @@ export default {
     },
     messageCardContainer: {
       ...stylesConstants.messageCardContainer,
-      backgroundColor: colors.darkSecondaryComponentColor,
     },
   }),
   light: StyleSheet.create({
@@ -206,7 +202,6 @@ export default {
     },
     messageCardContainer: {
       ...stylesConstants.messageCardContainer,
-      backgroundColor: colors.greenComponentColor,
     },
   }),
 };

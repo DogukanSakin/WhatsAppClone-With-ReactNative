@@ -1,20 +1,19 @@
 import React, { useContext } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Dimensions } from "react-native";
 import Message from "../../models/Message";
 import contacts from "../../dummyData/contacts";
-import themeStyles, { stylesConstants } from "../../constants/styles";
+import { stylesConstants } from "../../constants/styles";
 import Contact from "../../models/Contact";
 import WhatsappText from "../texts/WhatsappText";
 import colors from "../../constants/colors";
 import ThemeContext from "../../context/ThemeContext";
 import MessageCard from "./MessageCard";
-
 interface IProps {
   item: Message;
 }
 export default function StarredMessageCard({ item }: IProps) {
   const { theme } = useContext(ThemeContext);
-  const currentTheme = theme as keyof typeof themeStyles;
+  const deviceSize = Dimensions.get("window");
   const getMessageSender = () => {
     const sender = contacts.find(
       (contact: Contact) => contact.id === item.senderID
@@ -73,6 +72,8 @@ export default function StarredMessageCard({ item }: IProps) {
               }}
               overrideStyles={[
                 {
+                  borderTopLeftRadius: 0,
+                  width: deviceSize.width * 0.8,
                   backgroundColor:
                     theme === "dark"
                       ? colors.darkSecondaryComponentColor

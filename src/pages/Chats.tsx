@@ -17,9 +17,13 @@ interface IProps {
 export default function Chats({ navigation, searchInChat }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-  const renderChatsData = ({ item }: any) => <ChatCard item={item as Chat} />;
+  const renderChatsData = ({ item }: { item: Chat }) => (
+    <ChatCard item={item} onPress={(item: Chat) => handleGoMessages(item)} />
+  );
   const [data, setData] = useState<Chat[]>(chatsData);
-
+  const handleGoMessages = (item: Chat) => {
+    navigation.navigate("Messages", { chat: item });
+  };
   useMemo(() => {
     if (searchInChat.trim() !== "") {
       const result = chatsData.filter((chat: Chat) => {

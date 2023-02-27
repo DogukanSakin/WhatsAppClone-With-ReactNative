@@ -1,15 +1,20 @@
 import React, { useContext, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { Menu, MenuItem } from "react-native-material-menu";
-import styles from "../constants/styles";
+import styles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "./texts/WhatsappText";
 import Action from "../models/Action";
 interface IProps {
   actions: Action[];
   onActionPress?: (action: any) => void;
+  menuColor?: string;
 }
-export default function PopUpMenu({ actions, onActionPress }: IProps) {
+export default function PopUpMenu({
+  actions,
+  onActionPress,
+  menuColor,
+}: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof styles;
   const [visible, setVisible] = useState(false);
@@ -28,8 +33,8 @@ export default function PopUpMenu({ actions, onActionPress }: IProps) {
         <Entypo
           name="dots-three-vertical"
           size={20}
-          style={styles[currentTheme].icon}
-          color={styles[currentTheme].icon.color}
+          style={stylesConstants.icon}
+          color={menuColor ? menuColor : styles[currentTheme].icon.color}
           onPress={showMenu}
         />
       }

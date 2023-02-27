@@ -40,6 +40,8 @@ export default function LinkedDevices({ navigation }: any) {
         style={[
           themeStyles[currentTheme].tabViewPage,
           {
+            paddingLeft: 0,
+            paddingRight: 0,
             backgroundColor:
               theme === "dark"
                 ? colors.darkThirdyBackgroudColor

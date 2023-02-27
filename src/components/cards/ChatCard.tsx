@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Pressable } from "react-native";
 import themeStyles, { stylesConstants } from "../../constants/styles";
 import ThemeContext from "../../context/ThemeContext";
 import WhatsappText from "../texts/WhatsappText";
@@ -8,13 +8,21 @@ import colors from "../../constants/colors";
 import Chat from "../../models/Chat";
 interface IProps {
   item: Chat;
+  onPress?: (item: Chat) => void;
 }
-export default function ChatCard({ item }: IProps) {
+export default function ChatCard({ item, onPress }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-
+  const handleOnPress = () => {
+    if (onPress) {
+      onPress(item);
+    }
+  };
   return (
-    <View style={[stylesConstants.rowContainer, { marginTop: 20 }]}>
+    <Pressable
+      style={[stylesConstants.rowContainer, { marginTop: 20 }]}
+      onPress={handleOnPress}
+    >
       <Image
         source={item.avatar}
         style={stylesConstants.cardImageOrIconContainer}
@@ -74,6 +82,6 @@ export default function ChatCard({ item }: IProps) {
           stylesConstants.smallText,
         ]}
       />
-    </View>
+    </Pressable>
   );
 }
