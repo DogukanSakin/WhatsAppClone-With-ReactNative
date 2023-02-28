@@ -10,19 +10,12 @@ import EncryptedText from "../components/texts/EncryptedText";
 import callsData from "../dummyData/calls";
 import Call from "../models/Call";
 import CallCard from "../components/cards/CallCard";
-import Contact from "../models/Contact";
-import contacts from "../dummyData/contacts";
 import SearchContext from "../context/SearchContext";
-import { useIsFocused } from "@react-navigation/native";
-interface IProps {
-  searchInCalls: string;
-  navigation: any;
-}
+import searchWithContactID from "../utils/searchWithContactID";
 export default function Calls() {
   const { theme } = useContext(ThemeContext);
   const { searchValue } = useContext(SearchContext);
-
-  const focused = useIsFocused();
+  console.log("calls");
   const currentTheme = theme as keyof typeof themeStyles;
   const [calls, setCalls] = useState<Call[]>(callsData);
 
@@ -31,26 +24,14 @@ export default function Calls() {
     []
   );
   const keyExtractor = useCallback((item: Call) => item.id.toString(), []);
-  const memoizedSearch = () => {
+  useMemo(() => {
     if (searchValue.length > 0) {
-      const filteredChats = callsData.filter((call: Call) => {
-        const contact: Contact | undefined = contacts.find(
-          (contact: Contact) => {
-            return contact.id === call.contactID;
-          }
-        );
-        if (contact) {
-          return contact.name.toLowerCase().includes(searchValue.toLowerCase());
-        }
-      });
-      setCalls(filteredChats);
+      const result = searchWithContactID(callsData, searchValue);
+      result && setCalls(result);
     } else {
       setCalls(callsData);
     }
-  };
-  useMemo(() => {
-    memoizedSearch();
-  }, [searchValue, callsData, focused]);
+  }, [searchValue, callsData]);
   return (
     <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 20 }]}>
       <View style={stylesConstants.rowAlignContainer}>

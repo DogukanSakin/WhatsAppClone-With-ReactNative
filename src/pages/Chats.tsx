@@ -10,10 +10,8 @@ import chatsData from "../dummyData/chats";
 import ChatCard from "../components/cards/ChatCard";
 import Chat from "../models/Chat";
 import FloatingButton from "../components/buttons/FloatingButton";
-import contacts from "../dummyData/contacts";
-import Contact from "../models/Contact";
 import SearchContext from "../context/SearchContext";
-
+import searchWithContactID from "../utils/searchWithContactID";
 export default function Chats({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
@@ -29,25 +27,14 @@ export default function Chats({ navigation }: any) {
   const handleGoMessages = (item: Chat) => {
     navigation.navigate("Messages", { chat: item });
   };
-  const memoizedSearch = () => {
+
+  useMemo(() => {
     if (searchValue.length > 0) {
-      const filteredChats = chatsData.filter((chat: Chat) => {
-        const contact: Contact | undefined = contacts.find(
-          (contact: Contact) => {
-            return contact.id === chat.contactID;
-          }
-        );
-        if (contact) {
-          return contact.name.toLowerCase().includes(searchValue.toLowerCase());
-        }
-      });
-      setData(filteredChats);
+      const result = searchWithContactID(chatsData, searchValue);
+      result && setData(result);
     } else {
       setData(chatsData);
     }
-  };
-  useMemo(() => {
-    memoizedSearch();
   }, [searchValue, chatsData]);
 
   return (

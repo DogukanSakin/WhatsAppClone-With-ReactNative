@@ -8,7 +8,7 @@ import PopUpMenu from "./components/PopUpMenu";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Calls from "./pages/Calls";
 import Chats from "./pages/Chats";
-import Status from "./pages/Status";
+import Status from "./pages/ContactStatus";
 import colors from "./constants/colors";
 import {
   callsPageActions,
