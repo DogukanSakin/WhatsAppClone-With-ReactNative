@@ -11,7 +11,7 @@ import MessageCard from "./MessageCard";
 interface IProps {
   item: Message;
 }
-export default function StarredMessageCard({ item }: IProps) {
+function StarredMessageCard({ item }: IProps) {
   const { theme } = useContext(ThemeContext);
   const deviceSize = Dimensions.get("window");
   const getMessageSender = () => {
@@ -89,3 +89,8 @@ export default function StarredMessageCard({ item }: IProps) {
     </View>
   );
 }
+
+function areEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.item.id === nextProps.item.id;
+}
+export default React.memo(StarredMessageCard, areEqual);

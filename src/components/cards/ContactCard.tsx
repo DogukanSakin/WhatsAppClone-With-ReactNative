@@ -14,7 +14,7 @@ interface IProps {
   overrideStyles?: object;
   showRemoveIcon?: boolean;
 }
-export default function ContactCard({
+function ContactCard({
   item,
   onPress,
   showCardText = true,
@@ -23,6 +23,7 @@ export default function ContactCard({
 }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
+
   return (
     <Pressable
       onPress={onPress}
@@ -83,3 +84,5 @@ export default function ContactCard({
     </Pressable>
   );
 }
+
+export default ContactCard;

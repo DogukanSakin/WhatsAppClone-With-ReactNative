@@ -21,6 +21,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import Input from "./components/Input";
+import SearchContext from "./context/SearchContext";
 export default function Router({ navigation }: any) {
   const route = useRoute();
   const { theme } = useContext(ThemeContext);
@@ -28,7 +29,7 @@ export default function Router({ navigation }: any) {
   const Tab = createMaterialTopTabNavigator();
   const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
   const [currentRouteName, setCurrentRouteName] = useState<string>("Chats");
-  const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const { setSearchValue } = useContext(SearchContext);
   const menuAction = (selectedAction?: Action) => {
     if (currentRouteName === "Chats") {
       switch (selectedAction?.actionName) {
@@ -61,22 +62,9 @@ export default function Router({ navigation }: any) {
       }
     }
   };
-  const ChatsPage = () => (
-    <Chats
-      navigation={navigation}
-      searchInChat={currentRouteName === "Chats" ? searchInputValue : ""}
-    />
-  );
-  const StatusPage = () => <Status />;
-  const CallsPage = () => (
-    <Calls
-      navigation={navigation}
-      searchInCalls={currentRouteName === "Calls" ? searchInputValue : ""}
-    />
-  );
+
   useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    searchBarVisible === true && setSearchBarVisible(false);
     routeName && setCurrentRouteName(routeName);
   }, [navigation, route]);
 
@@ -115,7 +103,7 @@ export default function Router({ navigation }: any) {
             />
             <Input
               placeholder="Search..."
-              onChangeText={(text: string) => setSearchInputValue(text)}
+              onChangeText={(text: string) => setSearchValue(text)}
             />
           </View>
         ) : (
@@ -172,21 +160,21 @@ export default function Router({ navigation }: any) {
       >
         <Tab.Screen
           name="Chats"
-          component={ChatsPage}
+          component={Chats}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Chats"),
           }}
         />
         <Tab.Screen
           name="Status"
-          component={StatusPage}
+          component={Status}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Status"),
           }}
         />
         <Tab.Screen
           name="Calls"
-          component={CallsPage}
+          component={Calls}
           options={{
             tabBarLabel: ({ focused }) => tabViewTitle(focused, "Calls"),
           }}

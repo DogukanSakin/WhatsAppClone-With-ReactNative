@@ -16,7 +16,7 @@ interface IProps {
   item: Setting;
   overrideStyles?: object;
 }
-export default function SettingsCard({ item, overrideStyles }: IProps) {
+function SettingsCard({ item, overrideStyles }: IProps) {
   const { theme } = useContext(ThemeContext);
 
   const SettingIcon: any = () => {
@@ -106,3 +106,7 @@ export default function SettingsCard({ item, overrideStyles }: IProps) {
     </View>
   );
 }
+function areEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.item.name === nextProps.item.name;
+}
+export default React.memo(SettingsCard, areEqual);

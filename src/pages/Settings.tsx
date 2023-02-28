@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { View, Image, FlatList, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
@@ -11,9 +11,12 @@ import SettingsCard from "../components/cards/SettingsCard";
 export default function Settings({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-  const renderSettings = ({ item }: { item: Setting }) => (
-    <SettingsCard item={item} />
+
+  const renderSettings = useCallback(
+    ({ item }: { item: Setting }) => <SettingsCard item={item} />,
+    []
   );
+  const keyExtractor = useCallback((item: Setting) => item.name.toString(), []);
   return (
     <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
@@ -87,7 +90,7 @@ export default function Settings({ navigation }: any) {
         <FlatList
           data={mainSettings}
           renderItem={renderSettings}
-          keyExtractor={(item, index) => item.name.toString()}
+          keyExtractor={keyExtractor}
         ></FlatList>
       </View>
     </SafeAreaView>

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { View, FlatList, Pressable } from "react-native";
 import themeStyles from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
@@ -12,22 +12,25 @@ import Chat from "../models/Chat";
 import FloatingButton from "../components/buttons/FloatingButton";
 import contacts from "../dummyData/contacts";
 import Contact from "../models/Contact";
-interface IProps {
-  navigation: any;
-  searchInChat: string;
-}
-export default function Chats({ navigation, searchInChat }: IProps) {
+import SearchContext from "../context/SearchContext";
+
+export default function Chats({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-  const renderChatsData = ({ item }: { item: Chat }) => (
-    <ChatCard item={item} onPress={(item: Chat) => handleGoMessages(item)} />
+  const { searchValue } = useContext(SearchContext);
+  const renderChatsData = useCallback(
+    ({ item }: { item: Chat }) => (
+      <ChatCard item={item} onPress={(item: Chat) => handleGoMessages(item)} />
+    ),
+    []
   );
+  const keyExtractor = useCallback((item: Chat) => item.id.toString(), []);
   const [data, setData] = useState<Chat[]>(chatsData);
   const handleGoMessages = (item: Chat) => {
     navigation.navigate("Messages", { chat: item });
   };
-  useMemo(() => {
-    if (searchInChat.length > 0) {
+  const memoizedSearch = () => {
+    if (searchValue.length > 0) {
       const filteredChats = chatsData.filter((chat: Chat) => {
         const contact: Contact | undefined = contacts.find(
           (contact: Contact) => {
@@ -35,16 +38,17 @@ export default function Chats({ navigation, searchInChat }: IProps) {
           }
         );
         if (contact) {
-          return contact.name
-            .toLowerCase()
-            .includes(searchInChat.toLowerCase());
+          return contact.name.toLowerCase().includes(searchValue.toLowerCase());
         }
       });
       setData(filteredChats);
     } else {
       setData(chatsData);
     }
-  }, [searchInChat, chatsData]);
+  };
+  useMemo(() => {
+    memoizedSearch();
+  }, [searchValue, chatsData]);
 
   return (
     <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 20 }]}>
@@ -76,7 +80,7 @@ export default function Chats({ navigation, searchInChat }: IProps) {
       <FlatList
         data={data}
         renderItem={renderChatsData}
-        keyExtractor={(item, index) => item.id.toString()}
+        keyExtractor={keyExtractor}
       />
       <EncryptedText />
       <FloatingButton

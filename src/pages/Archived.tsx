@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { SafeAreaView, View, FlatList } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
@@ -14,10 +14,12 @@ import EncryptedText from "../components/texts/EncryptedText";
 export default function Archived({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
-  const renderChatsData = ({ item }: { item: Chat }) => (
-    <ChatCard item={item} />
-  );
 
+  const renderChatsData = useCallback(
+    ({ item }: { item: Chat }) => <ChatCard item={item} />,
+    []
+  );
+  const keyExtractor = useCallback((item: Chat) => item.id.toString(), []);
   return (
     <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
@@ -57,7 +59,7 @@ export default function Archived({ navigation }: any) {
         <FlatList
           data={chatsData}
           renderItem={renderChatsData}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={keyExtractor}
         />
         <EncryptedText />
       </View>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { View, FlatList, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
@@ -39,18 +39,27 @@ export default function NewGroup({ navigation, route }: Props) {
       ? setSelectedContacts(selectedContacts)
       : setSelectedContacts(null);
   };
-  const renderContacts = ({ item }: { item: Contact }) => (
-    <ContactCard item={item} onPress={() => handleSelectContact(item)} />
+
+  const renderContacts = useCallback(
+    ({ item }: { item: Contact }) => (
+      <ContactCard item={item} onPress={() => handleSelectContact(item)} />
+    ),
+    []
   );
-  const renderSelectedContacts = ({ item }: { item: Contact }) => (
-    <ContactCard
-      showRemoveIcon
-      overrideStyles={{ marginRight: 20, marginBottom: 10 }}
-      showCardText={false}
-      item={item}
-      onPress={() => handleSelectContact(item)}
-    />
+  const keyExtractor = useCallback((item: Contact) => item.id.toString(), []);
+  const renderSelectedContacts = useCallback(
+    ({ item }: { item: Contact }) => (
+      <ContactCard
+        showRemoveIcon
+        overrideStyles={{ marginRight: 20, marginBottom: 10 }}
+        showCardText={false}
+        item={item}
+        onPress={() => handleSelectContact(item)}
+      />
+    ),
+    []
   );
+
   const handleSearch = (text: string) => {
     if (text.trim() !== "") {
       const filteredContacts = contactData.filter((contact: Contact) => {
@@ -113,6 +122,7 @@ export default function NewGroup({ navigation, route }: Props) {
               data={selectedContacts}
               horizontal={true}
               renderItem={renderSelectedContacts}
+              keyExtractor={keyExtractor}
             ></FlatList>
           </View>
         )}
@@ -120,7 +130,7 @@ export default function NewGroup({ navigation, route }: Props) {
         <FlatList
           data={data}
           renderItem={renderContacts}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={keyExtractor}
         />
         <FloatingButton iconName="arrowright" iconPacket="AntDesign" />
         <EncryptedText />

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -31,9 +31,12 @@ export default function Messages({ navigation, route }: Props) {
   const { chat } = route.params;
   const [contact, setContact] = useState<Contact>();
   const [messagesData, setMessagesData] = useState<Message[]>();
-  const renderMessages = ({ item }: { item: Message }) => (
-    <MessageCard item={item} overrideStyles={{ marginTop: 20 }}></MessageCard>
+
+  const renderMessages = useCallback(
+    ({ item }: { item: Message }) => <MessageCard item={item} />,
+    []
   );
+  const keyExtractor = useCallback((item: Message) => item.id.toString(), []);
 
   useEffect(() => {
     const contact = contacts.find((c: Contact) => c.id === chat.id);
@@ -123,7 +126,7 @@ export default function Messages({ navigation, route }: Props) {
         <FlatList
           data={messagesData}
           renderItem={renderMessages}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={keyExtractor}
         ></FlatList>
         <View style={stylesConstants.rowAlignContainer}>
           <Input

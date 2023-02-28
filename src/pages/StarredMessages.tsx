@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { View, FlatList, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -29,9 +29,11 @@ export default function StarredMessages({ navigation }: any) {
     }
   };
 
-  const renderStarredMessages = ({ item }: { item: Message }) => (
-    <StarredMessageCard item={item} />
+  const renderStarredMessages = useCallback(
+    ({ item }: { item: Message }) => <StarredMessageCard item={item} />,
+    []
   );
+  const keyExtractor = useCallback((item: Message) => item.id.toString(), []);
   return (
     <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
@@ -97,7 +99,7 @@ export default function StarredMessages({ navigation }: any) {
       >
         <FlatList
           data={data}
-          keyExtractor={(item, index) => item.id.toString()}
+          keyExtractor={keyExtractor}
           renderItem={renderStarredMessages}
         ></FlatList>
       </View>

@@ -13,7 +13,7 @@ interface IProps {
   item: Chat;
   onPress?: (item: Chat) => void;
 }
-export default function ChatCard({ item, onPress }: IProps) {
+function ChatCard({ item, onPress }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
   const handleOnPress = () => {
@@ -91,3 +91,8 @@ export default function ChatCard({ item, onPress }: IProps) {
     </Pressable>
   );
 }
+//check props equal
+function areEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.item.id === nextProps.item.id;
+}
+export default React.memo(ChatCard, areEqual);

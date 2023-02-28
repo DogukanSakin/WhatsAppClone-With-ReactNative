@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import RadioItemSetting from "../../models/RadioItemSetting";
 import { stylesConstants } from "../../constants/styles";
 import colors from "../../constants/colors";
@@ -10,7 +10,7 @@ interface IProps {
   selected?: RadioItemSetting;
   onSelected(item: RadioItemSetting): void;
 }
-export default function RadioButton({ item, selected, onSelected }: IProps) {
+function RadioButton({ item, selected, onSelected }: IProps) {
   const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
@@ -48,3 +48,9 @@ export default function RadioButton({ item, selected, onSelected }: IProps) {
     </TouchableOpacity>
   );
 }
+//check props same
+
+function areEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.selected?.id === nextProps.selected?.id;
+}
+export default React.memo(RadioButton, areEqual);

@@ -6,6 +6,7 @@ export default class {
   type: string;
   status: string;
   isVideoCall: boolean;
+
   constructor(
     id: number,
     contactID: number,

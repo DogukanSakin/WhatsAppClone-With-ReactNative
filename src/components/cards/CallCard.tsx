@@ -12,13 +12,17 @@ import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 interface IProps {
   item: Call;
 }
-export default function CallCard({ item }: IProps) {
+function CallCard({ item }: IProps) {
   const { theme } = useContext(ThemeContext);
   const contact = contacts.find((c: Contact) => {
     return c.id === item.contactID;
   });
+
   return (
-    <View style={[stylesConstants.rowAlignContainer, { marginTop: 30 }]}>
+    <View
+      style={[stylesConstants.rowAlignContainer, { marginTop: 30 }]}
+      key={item.id}
+    >
       <Image
         source={contact!!.avatar}
         style={stylesConstants.cardImageOrIconContainer}
@@ -91,3 +95,9 @@ export default function CallCard({ item }: IProps) {
     </View>
   );
 }
+
+// props equal check
+function arePropsEqual(prevProps: IProps, nextProps: IProps) {
+  return prevProps.item.id === nextProps.item.id ? true : false;
+}
+export default React.memo(CallCard, arePropsEqual);

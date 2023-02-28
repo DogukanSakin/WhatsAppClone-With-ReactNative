@@ -14,7 +14,7 @@ interface IProps {
   textOverrideStyles?: object;
   isMessageStarred?: boolean;
 }
-export default function MessageCard({
+function MessageCard({
   item,
   overrideStyles,
   textOverrideStyles,
@@ -80,3 +80,12 @@ export default function MessageCard({
     </View>
   );
 }
+
+function areEqual(prevProps: IProps, nextProps: IProps) {
+  return (
+    prevProps.item.message === nextProps.item.message &&
+    prevProps.item.sendTime === nextProps.item.sendTime &&
+    prevProps.isMessageStarred === nextProps.isMessageStarred
+  );
+}
+export default React.memo(MessageCard, areEqual);

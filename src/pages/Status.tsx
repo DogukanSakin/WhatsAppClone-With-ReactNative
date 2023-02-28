@@ -13,6 +13,7 @@ interface IProps {
 export default function Status({ searchInStatus }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
+
   return (
     <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 20 }]}>
       <View style={[stylesConstants.rowAlignContainer, { marginBottom: 20 }]}>

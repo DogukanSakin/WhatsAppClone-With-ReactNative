@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useMemo, useState, useCallback } from "react";
 import { View, FlatList } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
@@ -12,19 +12,27 @@ import Call from "../models/Call";
 import CallCard from "../components/cards/CallCard";
 import Contact from "../models/Contact";
 import contacts from "../dummyData/contacts";
+import SearchContext from "../context/SearchContext";
+import { useIsFocused } from "@react-navigation/native";
 interface IProps {
   searchInCalls: string;
   navigation: any;
 }
-export default function Calls({ searchInCalls, navigation }: IProps) {
+export default function Calls() {
   const { theme } = useContext(ThemeContext);
+  const { searchValue } = useContext(SearchContext);
+
+  const focused = useIsFocused();
   const currentTheme = theme as keyof typeof themeStyles;
   const [calls, setCalls] = useState<Call[]>(callsData);
-  const renderCalls = ({ item }: { item: Call }) => (
-    <CallCard item={item}></CallCard>
+
+  const renderCalls = useCallback(
+    ({ item }: { item: Call }) => <CallCard item={item} />,
+    []
   );
-  useMemo(() => {
-    if (searchInCalls.length > 0) {
+  const keyExtractor = useCallback((item: Call) => item.id.toString(), []);
+  const memoizedSearch = () => {
+    if (searchValue.length > 0) {
       const filteredChats = callsData.filter((call: Call) => {
         const contact: Contact | undefined = contacts.find(
           (contact: Contact) => {
@@ -32,16 +40,17 @@ export default function Calls({ searchInCalls, navigation }: IProps) {
           }
         );
         if (contact) {
-          return contact.name
-            .toLowerCase()
-            .includes(searchInCalls.toLowerCase());
+          return contact.name.toLowerCase().includes(searchValue.toLowerCase());
         }
       });
       setCalls(filteredChats);
     } else {
       setCalls(callsData);
     }
-  }, [searchInCalls, callsData]);
+  };
+  useMemo(() => {
+    memoizedSearch();
+  }, [searchValue, callsData, focused]);
   return (
     <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 20 }]}>
       <View style={stylesConstants.rowAlignContainer}>
@@ -79,7 +88,11 @@ export default function Calls({ searchInCalls, navigation }: IProps) {
           { marginTop: 20 },
         ]}
       ></WhatsappText>
-      <FlatList data={calls} renderItem={renderCalls}></FlatList>
+      <FlatList
+        data={calls}
+        renderItem={renderCalls}
+        keyExtractor={keyExtractor}
+      ></FlatList>
       <EncryptedText />
       <FloatingButton iconName="add-call"></FloatingButton>
     </View>

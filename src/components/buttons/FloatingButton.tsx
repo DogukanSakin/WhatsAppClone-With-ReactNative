@@ -39,4 +39,5 @@ function FloatingButton({
     </Pressable>
   );
 }
+
 export default React.memo(FloatingButton);
