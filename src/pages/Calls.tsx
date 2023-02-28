@@ -15,7 +15,6 @@ import searchWithContactID from "../utils/searchWithContactID";
 export default function Calls() {
   const { theme } = useContext(ThemeContext);
   const { searchValue } = useContext(SearchContext);
-  console.log("calls");
   const currentTheme = theme as keyof typeof themeStyles;
   const [calls, setCalls] = useState<Call[]>(callsData);
 

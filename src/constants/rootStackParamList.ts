@@ -9,4 +9,5 @@ export type RootStackParamList = {
   Messages: { chat: Chat };
   Settings: undefined;
   StatusPrivacy: undefined;
+  ChatSettings: undefined;
 };

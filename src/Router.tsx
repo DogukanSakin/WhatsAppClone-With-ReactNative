@@ -22,6 +22,7 @@ import {
 } from "@react-navigation/native";
 import Input from "./components/Input";
 import SearchContext from "./context/SearchContext";
+import AlertModal from "./components/modals/AlertModal";
 export default function Router({ navigation }: any) {
   const route = useRoute();
   const { theme } = useContext(ThemeContext);
@@ -29,6 +30,8 @@ export default function Router({ navigation }: any) {
   const Tab = createMaterialTopTabNavigator();
   const [searchBarVisible, setSearchBarVisible] = useState<boolean>(false);
   const [currentRouteName, setCurrentRouteName] = useState<string>("Chats");
+  const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false);
+  const handleModalVisible = () => setAlertModalVisible(!alertModalVisible);
   const { setSearchValue } = useContext(SearchContext);
   const menuAction = (selectedAction?: Action) => {
     if (currentRouteName === "Chats") {
@@ -59,6 +62,8 @@ export default function Router({ navigation }: any) {
       switch (selectedAction?.actionName) {
         case "Settings":
           return navigation.navigate("Settings");
+        case "Clear call log":
+          return setAlertModalVisible(true);
       }
     }
   };
@@ -88,6 +93,23 @@ export default function Router({ navigation }: any) {
 
   return (
     <SafeAreaView style={stylesConstants.container}>
+      {alertModalVisible && (
+        <AlertModal isVisible={alertModalVisible} onClose={handleModalVisible}>
+          <WhatsappText
+            text="Do you want to clear your entire call log?"
+            overrideStyles={[
+              stylesConstants.middleText,
+              {
+                marginBottom: 20,
+                color:
+                  theme === "dark"
+                    ? colors.darkPrimaryComponentColor
+                    : colors.darkSecondaryComponentColor,
+              },
+            ]}
+          ></WhatsappText>
+        </AlertModal>
+      )}
       <View style={themeStyles[currentTheme].header}>
         {searchBarVisible === true ? (
           <View style={stylesConstants.rowContainer}>

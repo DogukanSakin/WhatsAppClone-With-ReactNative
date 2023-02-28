@@ -5,7 +5,7 @@ import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
 import colors from "../constants/colors";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import mainSettings from "../constants/mainSettings";
+import mainSettings from "../constants/settings/mainSettings";
 import Setting from "../models/Setting";
 import SettingsCard from "../components/cards/SettingsCard";
 export default function Settings({ navigation }: any) {
@@ -13,10 +13,15 @@ export default function Settings({ navigation }: any) {
   const currentTheme = theme as keyof typeof themeStyles;
 
   const renderSettings = useCallback(
-    ({ item }: { item: Setting }) => <SettingsCard item={item} />,
+    ({ item }: { item: Setting }) => (
+      <SettingsCard item={item} onPress={selectSettings} />
+    ),
     []
   );
   const keyExtractor = useCallback((item: Setting) => item.name.toString(), []);
+  const selectSettings = (item: Setting) => {
+    if (item.navigationPath) return navigation.navigate(item.navigationPath);
+  };
   return (
     <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>

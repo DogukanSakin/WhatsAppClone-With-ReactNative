@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View } from "react-native";
+import { View, Pressable } from "react-native";
 import Setting from "../../models/Setting";
 import WhatsappText from "../texts/WhatsappText";
 import { stylesConstants } from "../../constants/styles";
@@ -11,14 +11,20 @@ import {
   Fontisto,
   Ionicons,
   FontAwesome5,
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 interface IProps {
   item: Setting;
   overrideStyles?: object;
+  onPress?: (setting: Setting) => void;
 }
-function SettingsCard({ item, overrideStyles }: IProps) {
+function SettingsCard({ item, overrideStyles, onPress }: IProps) {
   const { theme } = useContext(ThemeContext);
-
+  const handleOnPress = () => {
+    if (onPress) {
+      onPress(item);
+    }
+  };
   const SettingIcon: any = () => {
     if (item.iconName) {
       switch (item.iconPack) {
@@ -67,11 +73,21 @@ function SettingsCard({ item, overrideStyles }: IProps) {
               style={{ marginRight: 20 }}
             />
           );
+        case "MaterialCommunityIcons":
+          return (
+            <MaterialCommunityIcons
+              name={item.iconName}
+              size={24}
+              color={colors.darkPrimaryComponentColor}
+              style={{ marginRight: 20 }}
+            />
+          );
       }
     }
   };
   return (
-    <View
+    <Pressable
+      onPress={handleOnPress}
       style={[
         { marginTop: 20, marginLeft: 20 },
         stylesConstants.rowAlignContainer,
@@ -103,7 +119,7 @@ function SettingsCard({ item, overrideStyles }: IProps) {
           ></WhatsappText>
         )}
       </View>
-    </View>
+    </Pressable>
   );
 }
 function areEqual(prevProps: IProps, nextProps: IProps) {

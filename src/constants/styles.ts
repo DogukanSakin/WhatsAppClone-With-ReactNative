@@ -120,6 +120,13 @@ export const stylesConstants = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: colors.greenComponentColor,
   },
+  alertModalContainer: {
+    justifyContent: "center",
+  },
+  alertModalInnerContainer: {
+    borderRadius: 10,
+    padding: 20,
+  },
 });
 export default {
   dark: StyleSheet.create({
@@ -170,6 +177,10 @@ export default {
     },
     messageCardContainer: {
       ...stylesConstants.messageCardContainer,
+    },
+    alertModalInnerContainer: {
+      ...stylesConstants.alertModalInnerContainer,
+      backgroundColor: colors.headerDark,
     },
   }),
   light: StyleSheet.create({
@@ -223,6 +234,10 @@ export default {
     },
     messageCardContainer: {
       ...stylesConstants.messageCardContainer,
+    },
+    alertModalInnerContainer: {
+      ...stylesConstants.alertModalInnerContainer,
+      backgroundColor: colors.lightComponentColor,
     },
   }),
 };

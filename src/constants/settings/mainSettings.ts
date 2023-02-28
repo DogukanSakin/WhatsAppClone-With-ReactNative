@@ -1,4 +1,4 @@
-import Setting from "../models/Setting";
+import Setting from "../../models/Setting";
 export default <Setting[]>[
   new Setting("Account", "Security and privacy settings", "key", "Entypo"),
   new Setting(
@@ -12,7 +12,8 @@ export default <Setting[]>[
     "Chats",
     "Theme, wallpapers, chat history",
     "chat",
-    "MaterialIcons"
+    "MaterialIcons",
+    "ChatSettings"
   ),
   new Setting(
     "Notifications",
