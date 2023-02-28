@@ -6,6 +6,9 @@ import WhatsappText from "../texts/WhatsappText";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../constants/colors";
 import Chat from "../../models/Chat";
+import contacts from "../../dummyData/contacts";
+import Contact from "../../models/Contact";
+
 interface IProps {
   item: Chat;
   onPress?: (item: Chat) => void;
@@ -18,19 +21,22 @@ export default function ChatCard({ item, onPress }: IProps) {
       onPress(item);
     }
   };
+  const contact = contacts.find((c: Contact) => {
+    return c.id === item.contactID;
+  });
   return (
     <Pressable
       style={[stylesConstants.rowContainer, { marginTop: 20 }]}
       onPress={handleOnPress}
     >
       <Image
-        source={item.avatar}
+        source={contact!!.avatar}
         style={stylesConstants.cardImageOrIconContainer}
       />
       <View style={{ marginLeft: 16, flex: 1 }}>
         <WhatsappText
           fontFamily="bold"
-          text={item.name}
+          text={contact!!.name}
           overrideStyles={themeStyles[currentTheme].pageInnerText}
         />
         <View style={stylesConstants.rowAlignContainer}>

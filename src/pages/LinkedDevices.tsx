@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Image } from "react-native";
+import { View, Image, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
@@ -11,7 +11,7 @@ export default function LinkedDevices({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -91,6 +91,6 @@ export default function LinkedDevices({ navigation }: any) {
         </View>
         <EncryptedText />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

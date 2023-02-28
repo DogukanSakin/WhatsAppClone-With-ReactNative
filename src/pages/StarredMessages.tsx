@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import ThemeContext from "../context/ThemeContext";
@@ -33,7 +33,7 @@ export default function StarredMessages({ navigation }: any) {
     <StarredMessageCard item={item} />
   );
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -101,6 +101,6 @@ export default function StarredMessages({ navigation }: any) {
           renderItem={renderStarredMessages}
         ></FlatList>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useLayoutEffect, useState } from "react";
-import { View } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import WhatsappText from "./components/texts/WhatsappText";
 import ThemeContext from "./context/ThemeContext";
 import themeStyles, { stylesConstants } from "./constants/styles";
@@ -54,6 +54,11 @@ export default function Router({ navigation }: any) {
         case "Status Privacy":
           return navigation.navigate("StatusPrivacy");
       }
+    } else {
+      switch (selectedAction?.actionName) {
+        case "Settings":
+          return navigation.navigate("Settings");
+      }
     }
   };
   const ChatsPage = () => (
@@ -63,7 +68,12 @@ export default function Router({ navigation }: any) {
     />
   );
   const StatusPage = () => <Status />;
-  const CallsPage = () => <Calls />;
+  const CallsPage = () => (
+    <Calls
+      navigation={navigation}
+      searchInCalls={currentRouteName === "Calls" ? searchInputValue : ""}
+    />
+  );
   useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
     searchBarVisible === true && setSearchBarVisible(false);
@@ -89,7 +99,7 @@ export default function Router({ navigation }: any) {
   );
 
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         {searchBarVisible === true ? (
           <View style={stylesConstants.rowContainer}>
@@ -182,6 +192,6 @@ export default function Router({ navigation }: any) {
           }}
         />
       </Tab.Navigator>
-    </View>
+    </SafeAreaView>
   );
 }

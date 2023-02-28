@@ -59,7 +59,6 @@ export const stylesConstants = StyleSheet.create({
   },
   input: {
     marginLeft: 10,
-    color: colors.darkPrimaryComponentColor,
   },
   floatingButton: {
     borderRadius: 200,
@@ -71,6 +70,7 @@ export const stylesConstants = StyleSheet.create({
     right: 20,
     bottom: 30,
     backgroundColor: colors.greenComponentColor,
+    elevation: 5,
   },
   cardBottomIconContainer: {
     height: 24,

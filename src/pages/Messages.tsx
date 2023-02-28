@@ -1,12 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Image, ImageBackground, FlatList } from "react-native";
+import {
+  View,
+  Image,
+  ImageBackground,
+  FlatList,
+  SafeAreaView,
+} from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../constants/rootStackParamList";
 import ThemeContext from "../context/ThemeContext";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import colors from "../constants/colors";
 import WhatsappText from "../components/texts/WhatsappText";
-import { AntDesign, Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Ionicons,
+  FontAwesome5,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import Contact from "../models/Contact";
 import contacts from "../dummyData/contacts";
 import messages from "../dummyData/messages";
@@ -38,7 +49,7 @@ export default function Messages({ navigation, route }: Props) {
       ? require("../../assets/images/defaultChatBackgroundDark.png")
       : require("../../assets/images/defaultChatBackgroundLight.png");
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -92,7 +103,7 @@ export default function Messages({ navigation, route }: Props) {
               size={24}
               color={colors.lightComponentColor}
             />
-            <Ionicons
+            <MaterialIcons
               name="call"
               size={24}
               style={stylesConstants.icon}
@@ -116,8 +127,19 @@ export default function Messages({ navigation, route }: Props) {
         ></FlatList>
         <View style={stylesConstants.rowAlignContainer}>
           <Input
+            overrideInputStyles={{
+              color:
+                theme === "dark"
+                  ? colors.lightComponentColor
+                  : colors.darkSecondaryComponentColor,
+            }}
             placeholder="Message"
             onChangeText={(t: string) => console.log(t)}
+            placeholderTextColor={
+              theme === "dark"
+                ? colors.darkPrimaryComponentColor
+                : colors.darkSecondaryComponentColor
+            }
             overrideStyles={{
               flex: 1,
               borderRadius: 20,
@@ -139,6 +161,6 @@ export default function Messages({ navigation, route }: Props) {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }

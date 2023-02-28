@@ -10,6 +10,8 @@ import chatsData from "../dummyData/chats";
 import ChatCard from "../components/cards/ChatCard";
 import Chat from "../models/Chat";
 import FloatingButton from "../components/buttons/FloatingButton";
+import contacts from "../dummyData/contacts";
+import Contact from "../models/Contact";
 interface IProps {
   navigation: any;
   searchInChat: string;
@@ -25,11 +27,22 @@ export default function Chats({ navigation, searchInChat }: IProps) {
     navigation.navigate("Messages", { chat: item });
   };
   useMemo(() => {
-    if (searchInChat.trim() !== "") {
-      const result = chatsData.filter((chat: Chat) => {
-        return chat.name.toLowerCase().includes(searchInChat.toLowerCase());
+    if (searchInChat.length > 0) {
+      const filteredChats = chatsData.filter((chat: Chat) => {
+        const contact: Contact | undefined = contacts.find(
+          (contact: Contact) => {
+            return contact.id === chat.contactID;
+          }
+        );
+        if (contact) {
+          return contact.name
+            .toLowerCase()
+            .includes(searchInChat.toLowerCase());
+        }
       });
-      setData(result);
+      setData(filteredChats);
+    } else {
+      setData(chatsData);
     }
   }, [searchInChat, chatsData]);
 

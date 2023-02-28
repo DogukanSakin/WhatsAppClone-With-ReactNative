@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, FlatList } from "react-native";
+import { SafeAreaView, View, FlatList } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
@@ -19,7 +19,7 @@ export default function Archived({ navigation }: any) {
   );
 
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -61,6 +61,6 @@ export default function Archived({ navigation }: any) {
         />
         <EncryptedText />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

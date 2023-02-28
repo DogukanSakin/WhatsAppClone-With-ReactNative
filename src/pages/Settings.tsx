@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Image, FlatList } from "react-native";
+import { View, Image, FlatList, SafeAreaView } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
@@ -15,7 +15,7 @@ export default function Settings({ navigation }: any) {
     <SettingsCard item={item} />
   );
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -90,6 +90,6 @@ export default function Settings({ navigation }: any) {
           keyExtractor={(item, index) => item.name.toString()}
         ></FlatList>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

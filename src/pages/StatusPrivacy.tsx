@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
@@ -17,7 +17,7 @@ export default function StatusPrivacy({ navigation }: any) {
     setSelected(item);
   };
   return (
-    <View style={stylesConstants.container}>
+    <SafeAreaView style={stylesConstants.container}>
       <View style={themeStyles[currentTheme].header}>
         <View style={themeStyles[currentTheme].headerInnerContainer}>
           <View style={stylesConstants.rowAlignContainer}>
@@ -65,6 +65,6 @@ export default function StatusPrivacy({ navigation }: any) {
           ]}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

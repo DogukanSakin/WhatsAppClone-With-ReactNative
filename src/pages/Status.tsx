@@ -7,7 +7,6 @@ import colors from "../constants/colors";
 import WhatsappText from "../components/texts/WhatsappText";
 import EncryptedText from "../components/texts/EncryptedText";
 import FloatingButton from "../components/buttons/FloatingButton";
-
 interface IProps {
   searchInStatus?: string;
 }
@@ -27,7 +26,7 @@ export default function Status({ searchInStatus }: IProps) {
           ></Image>
           <View
             style={[
-              stylesConstants.cardBottomIconContainer,
+              themeStyles[currentTheme].cardBottomIconContainer,
               { backgroundColor: colors.greenComponentColor },
             ]}
           >
