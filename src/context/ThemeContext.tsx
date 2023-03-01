@@ -9,7 +9,7 @@ interface IProps extends IObjectKeys {
 }
 const ThemeContext = createContext<IProps>(null!);
 export function ThemeProvider({ children }: any) {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const values: IProps = {
     theme,
     setTheme,

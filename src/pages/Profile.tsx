@@ -81,6 +81,11 @@ export default function Profile({ navigation }: any) {
               ]}
             ></WhatsappText>
             <Input
+              placeholderTextColor={
+                theme === "dark"
+                  ? colors.darkPrimaryComponentColor
+                  : colors.darkSecondaryComponentColor
+              }
               overrideInputStyles={{
                 marginLeft: 0,
                 height: 60,
