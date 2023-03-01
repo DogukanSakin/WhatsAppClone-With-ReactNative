@@ -11,7 +11,7 @@ import ChatCard from "../components/cards/ChatCard";
 import Chat from "../models/Chat";
 import chatsData from "../dummyData/chats";
 import EncryptedText from "../components/texts/EncryptedText";
-export default function Archived({ navigation }: any) {
+export default function ArchivedPage({ navigation }: any) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from "react";
-import { View, Image, FlatList, SafeAreaView } from "react-native";
+import { View, Image, FlatList, SafeAreaView, Pressable } from "react-native";
 import themeStyles, { stylesConstants } from "../constants/styles";
 import ThemeContext from "../context/ThemeContext";
 import WhatsappText from "../components/texts/WhatsappText";
@@ -21,6 +21,9 @@ export default function Settings({ navigation }: any) {
   const keyExtractor = useCallback((item: Setting) => item.name.toString(), []);
   const selectSettings = (item: Setting) => {
     if (item.navigationPath) return navigation.navigate(item.navigationPath);
+  };
+  const handleGoProfile = () => {
+    navigation.navigate("Profile");
   };
   return (
     <SafeAreaView style={stylesConstants.container}>
@@ -50,14 +53,15 @@ export default function Settings({ navigation }: any) {
       </View>
       <View style={[themeStyles[currentTheme].tabViewPage, { paddingTop: 20 }]}>
         <View style={stylesConstants.rowAlignContainer}>
-          <Image
-            source={require("../../assets/dummyImages/currentUserPP.png")}
-            style={[
-              stylesConstants.cardImageOrIconContainer,
-              { height: 70, width: 70 },
-            ]}
-          ></Image>
-
+          <Pressable onPress={handleGoProfile}>
+            <Image
+              source={require("../../assets/dummyImages/currentUserPP.png")}
+              style={[
+                stylesConstants.cardImageOrIconContainer,
+                { height: 70, width: 70 },
+              ]}
+            ></Image>
+          </Pressable>
           <View
             style={[
               stylesConstants.rowSpaceBetweenContainer,
@@ -65,26 +69,29 @@ export default function Settings({ navigation }: any) {
             ]}
           >
             <View>
-              <WhatsappText
-                text="Dogukan Sakin"
-                overrideStyles={[
-                  stylesConstants.bigText,
-                  {
-                    color:
-                      theme === "dark"
-                        ? colors.lightComponentColor
-                        : colors.darkSecondaryComponentColor,
-                  },
-                ]}
-              />
-              <WhatsappText
-                text="o7"
-                overrideStyles={[
-                  stylesConstants.middleText,
-                  stylesConstants.bottomText,
-                ]}
-              />
+              <Pressable onPress={handleGoProfile}>
+                <WhatsappText
+                  text="Dogukan Sakin"
+                  overrideStyles={[
+                    stylesConstants.bigText,
+                    {
+                      color:
+                        theme === "dark"
+                          ? colors.lightComponentColor
+                          : colors.darkSecondaryComponentColor,
+                    },
+                  ]}
+                />
+                <WhatsappText
+                  text="o7"
+                  overrideStyles={[
+                    stylesConstants.middleText,
+                    stylesConstants.bottomText,
+                  ]}
+                />
+              </Pressable>
             </View>
+
             <Ionicons
               name="qr-code-outline"
               size={24}

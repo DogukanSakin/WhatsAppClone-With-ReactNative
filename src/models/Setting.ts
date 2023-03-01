@@ -4,6 +4,8 @@ export default class {
   iconName?: any;
   iconPack?: string;
   navigationPath?: string;
+  header?: string;
+  editable?: boolean;
   constructor(
     name: string,
     description?: string,
@@ -15,12 +17,16 @@ export default class {
       | "Ionicons"
       | "FontAwesome5"
       | "MaterialCommunityIcons",
-    navigationPath?: string
+    navigationPath?: string,
+    header?: string,
+    editable?: boolean
   ) {
     this.name = name;
     this.description = description;
     this.iconName = iconName;
     this.iconPack = iconPack;
     this.navigationPath = navigationPath;
+    this.header = header;
+    this.editable = editable;
   }
 }

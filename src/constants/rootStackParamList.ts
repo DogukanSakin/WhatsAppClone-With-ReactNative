@@ -10,4 +10,6 @@ export type RootStackParamList = {
   Settings: undefined;
   StatusPrivacy: undefined;
   ChatSettings: undefined;
+  Profile: undefined;
+  About: undefined;
 };

@@ -24,3 +24,5 @@ export const messagesPageActions = <Action[]>[
   new Action("Wallpaper"),
   new Action("More"),
 ];
+
+export const aboutPageActions = <Action[]>[new Action("Delete all")];

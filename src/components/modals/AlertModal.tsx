@@ -11,12 +11,14 @@ interface IProps {
   onClose: () => void;
   children: any;
   onOK?: () => void;
+  overrideStyles?: object;
 }
 export default function AlertModal({
   isVisible,
   onClose,
   children,
   onOK,
+  overrideStyles,
 }: IProps) {
   const { theme } = useContext(ThemeContext);
   const currentTheme = theme as keyof typeof themeStyles;
@@ -25,9 +27,9 @@ export default function AlertModal({
       isVisible={isVisible}
       onSwipeComplete={onClose}
       onBackdropPress={onClose}
-      style={stylesConstants.alertModalContainer}
+      style={[stylesConstants.alertModalContainer, overrideStyles]}
     >
-      <View style={themeStyles[currentTheme].alertModalInnerContainer}>
+      <View style={[themeStyles[currentTheme].alertModalInnerContainer]}>
         {children}
         <View
           style={[stylesConstants.rowAlignContainer, { alignSelf: "flex-end" }]}

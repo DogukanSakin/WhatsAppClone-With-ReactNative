@@ -36,7 +36,7 @@ export default function ChatSettings({ navigation }: any) {
   const onSelected = (item: RadioItemSetting) => {
     setSelected(item);
   };
-  const onChangeTheme = () => {
+  const handleChangeTheme = () => {
     if (selected?.name === "Dark") {
       setTheme("dark");
     } else {
@@ -75,7 +75,7 @@ export default function ChatSettings({ navigation }: any) {
           <AlertModal
             isVisible={alertModalVisible}
             onClose={handleAlertModalVisible}
-            onOK={onChangeTheme}
+            onOK={handleChangeTheme}
           >
             <WhatsappText
               text="Choose theme"

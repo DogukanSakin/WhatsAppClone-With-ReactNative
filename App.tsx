@@ -13,6 +13,8 @@ import Settings from "./src/pages/Settings";
 import StatusPrivacy from "./src/pages/StatusPrivacy";
 import { SearchProvider } from "./src/context/SearchContext";
 import ChatSettings from "./src/pages/ChatSettings";
+import Profile from "./src/pages/Profile";
+import About from "./src/pages/About";
 export default function App() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
@@ -36,6 +38,8 @@ export default function App() {
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="StatusPrivacy" component={StatusPrivacy} />
             <Stack.Screen name="ChatSettings" component={ChatSettings} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="About" component={About} />
           </Stack.Navigator>
         </ThemeProvider>
       </SearchProvider>

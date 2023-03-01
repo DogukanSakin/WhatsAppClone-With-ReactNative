@@ -17,12 +17,18 @@ interface IProps {
   item: Setting;
   overrideStyles?: object;
   onPress?: (setting: Setting) => void;
+  onEdit?: (setting: Setting) => void;
 }
-function SettingsCard({ item, overrideStyles, onPress }: IProps) {
+function SettingsCard({ item, overrideStyles, onPress, onEdit }: IProps) {
   const { theme } = useContext(ThemeContext);
   const handleOnPress = () => {
     if (onPress) {
       onPress(item);
+    }
+  };
+  const handleOnEdit = () => {
+    if (onEdit) {
+      onEdit(item);
     }
   };
   const SettingIcon: any = () => {
@@ -89,14 +95,24 @@ function SettingsCard({ item, overrideStyles, onPress }: IProps) {
     <Pressable
       onPress={handleOnPress}
       style={[
-        { marginTop: 20, marginLeft: 20 },
+        { marginTop: 20, marginLeft: 20, width: "100%" },
         stylesConstants.rowAlignContainer,
         overrideStyles,
       ]}
     >
       <SettingIcon />
 
-      <View>
+      <View style={{ flex: 1 }}>
+        {item.header && (
+          <WhatsappText
+            text={item.header}
+            overrideStyles={[
+              stylesConstants.bottomText,
+              stylesConstants.smallText,
+              { marginBottom: 4 },
+            ]}
+          ></WhatsappText>
+        )}
         <WhatsappText
           text={item.name}
           overrideStyles={[
@@ -113,12 +129,21 @@ function SettingsCard({ item, overrideStyles, onPress }: IProps) {
           <WhatsappText
             text={item.description}
             overrideStyles={[
+              { marginTop: 4 },
               stylesConstants.bottomText,
               stylesConstants.smallText,
             ]}
           ></WhatsappText>
         )}
       </View>
+      {item.editable === true && (
+        <MaterialIcons
+          onPress={handleOnEdit}
+          name="edit"
+          size={24}
+          color={colors.greenComponentColor}
+        />
+      )}
     </Pressable>
   );
 }
